@@ -6,14 +6,14 @@ import {Bars3Icon} from '@heroicons/react/24/solid';
 
 const lightThemes = [
     "light", "cupcake", "bumblebee", "emerald", "corporate",
-    "valentine", "garden", "aqua", "lofi", "pastel", "fantasy",
-    "cmyk", "autumn", "business", "lemonade", "winter", "sunset"
+    "valentine", "garden", "lofi", "pastel", "fantasy",
+    "cmyk", "autumn", "lemonade", "winter", "nord", "retro", "cyberpunk"
 ];
 
 const darkThemes = [
-    "dark", "synthwave", "retro", "cyberpunk", "halloween",
+    "dark", "synthwave", "halloween",
     "forest", "black", "luxury", "dracula", "night", "coffee",
-    "dim", "nord"
+    "dim", "business", "sunset", "aqua"
 ];
 
 const NavbarComponent = () => {
@@ -62,7 +62,7 @@ const NavbarComponent = () => {
                     <dialog id="choose-theme-modal" className="modal">
                         <div className="modal-box w-96">
                             <h3 className="font-bold text-lg">Select your theme</h3>
-                            <p className="py-4">Choose from the available themes below:</p>
+                            <p className="py-4">Choose from the available themes below</p>
 
                             <div className="join join-vertical w-full overflow-y-auto max-h-60">
                                 {lightThemes.concat(darkThemes).map((theme) => (
