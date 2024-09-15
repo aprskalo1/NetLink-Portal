@@ -2,7 +2,8 @@ import {useEffect, useState} from 'react';
 import logoDark from '../assets/logo_dark.png';
 import logoLight from '../assets/logo_light.png';
 import {Link} from 'react-router-dom';
-import {Bars3Icon} from '@heroicons/react/24/solid';
+import {Bars3Icon} from '@heroicons/react/24/outline';
+import {PaintBrushIcon} from "@heroicons/react/24/outline";
 
 const lightThemes = [
     "light", "cupcake", "bumblebee", "emerald", "corporate",
@@ -56,7 +57,8 @@ const NavbarComponent = () => {
                             modal.showModal();
                         }
                     }}>
-                        Theme
+                        <span className="hidden lg:inline">Theme</span>
+                        <PaintBrushIcon className="h-6 w-6 lg:hidden"/>
                     </button>
 
                     <dialog id="choose-theme-modal" className="modal">
