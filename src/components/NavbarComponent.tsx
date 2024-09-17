@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
-import logoDark from '../assets/logo_dark.png';
-import logoLight from '../assets/logo_light.png';
-import {Link} from 'react-router-dom';
-import {Bars3Icon} from '@heroicons/react/24/outline';
-import {PaintBrushIcon} from "@heroicons/react/24/outline";
+import {PaintBrushIcon, Bars3Icon, UserCircleIcon, ArrowRightEndOnRectangleIcon, ArrowLeftStartOnRectangleIcon} from "@heroicons/react/24/outline";
+import {Link, useNavigate} from 'react-router-dom';
+import {onAuthStateChanged, signOut} from 'firebase/auth';
+import logoDark from '../assets/logo-dark.png';
+import logoLight from '../assets/logo-light.png';
+import {auth} from "../services/firebase.ts";
 
 const lightThemes = [
     "light", "cupcake", "bumblebee", "emerald", "corporate",
@@ -19,10 +20,35 @@ const darkThemes = [
 
 const NavbarComponent = () => {
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme') || 'light');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         document.querySelector('html')?.setAttribute('data-theme', currentTheme);
     }, [currentTheme]);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            setIsLoggedIn(false);
+            navigate('/login');
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
 
     const handleThemeChange = (theme: string) => {
         setCurrentTheme(theme);
@@ -40,7 +66,7 @@ const NavbarComponent = () => {
             </div>
 
             <div className="flex-1">
-                <Link to="/" className="text-lg font-bold ms-6">
+                <Link to={"/"} className="text-lg font-bold ms-6">
                     <img
                         src={isLightTheme ? logoLight : logoDark}
                         alt="NetLink Logo"
@@ -51,7 +77,7 @@ const NavbarComponent = () => {
 
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
-                    <button className="btn btn-ghost" onClick={() => {
+                    <button className="btn btn-ghost p-1 md:me-4" onClick={() => {
                         const modal = document.getElementById('choose-theme-modal') as HTMLDialogElement | null;
                         if (modal) {
                             modal.showModal();
@@ -60,6 +86,24 @@ const NavbarComponent = () => {
                         <span className="hidden lg:inline">Theme</span>
                         <PaintBrushIcon className="h-6 w-6 lg:hidden"/>
                     </button>
+
+                    <Link to={"/docs/profile"} className="btn btn-ghost p-1 md:me-4">
+                        <span className="hidden lg:inline">Profile</span>
+                        <UserCircleIcon className="h-6 w-6 lg:hidden"/>
+                    </Link>
+
+
+                    {isLoggedIn ? (
+                        <>
+                            <button className="btn btn-ghost p-1" onClick={handleLogout}>
+                                <ArrowLeftStartOnRectangleIcon className="h-6 w-6"/>
+                            </button>
+                        </>
+                    ) : (
+                        <Link to={"/login"} className="btn btn-ghost p-1">
+                            <ArrowRightEndOnRectangleIcon className="h-6 w-6"/>
+                        </Link>
+                    )}
 
                     <dialog id="choose-theme-modal" className="modal">
                         <div className="modal-box w-96">
