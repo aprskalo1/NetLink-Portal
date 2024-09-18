@@ -1,4 +1,4 @@
-import {Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 
 const DrawerComponent = () => {
     return (
@@ -11,13 +11,14 @@ const DrawerComponent = () => {
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                     <ul className="menu bg-base-200 rounded-box w-56">
-                        <li><a>Item 1</a></li>
                         <li>
                             <details open>
-                                <summary>Parent</summary>
+                                <summary>Docs</summary>
                                 <ul>
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
+                                    <li>
+                                        <Link to={"/docs/install"}>Install</Link>
+                                    </li>
+                                    <li><a>Use</a></li>
                                     <li>
                                         <details open>
                                             <summary>Parent</summary>
@@ -30,7 +31,6 @@ const DrawerComponent = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li><a>Item 3</a></li>
                     </ul>
                 </ul>
             </div>

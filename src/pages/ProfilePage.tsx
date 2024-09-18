@@ -16,7 +16,7 @@ const ProfilePage = () => {
             if (!user) {
                 navigate('/login');
             } else {
-                setUsername('');
+                setUsername(user.email?.toString() || '');
                 setApiKey('');
                 setStatus('');
                 setCreatedAt('');
@@ -28,7 +28,7 @@ const ProfilePage = () => {
 
     return (
         <>
-            <p className="text-4xl font-bold mb-5">Profile</p>
+            <p className="text-4xl font-bold text-center mb-5">Welcome, {username}</p>
             <div className="flex flex-col gap-3 lg:w-8/12">
                 <InputField
                     label="Dev Token"
