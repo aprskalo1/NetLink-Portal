@@ -1,9 +1,11 @@
 import {OAuthProvider, signInWithPopup} from "firebase/auth";
+import {useNavigate} from "react-router-dom";
 import {auth} from "../../services/firebase";
 import AppleIcon from "../../assets/apple-icon.png";
 
 const AppleLogInButton = () => {
     const oAuthProvider = new OAuthProvider('apple.com');
+    const navigate = useNavigate();
     oAuthProvider.addScope('email');
     oAuthProvider.addScope('name');
 

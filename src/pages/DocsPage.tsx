@@ -1,12 +1,12 @@
-import NavbarComponent from "../components/NavbarComponent";
-import DrawerComponent from "../components/DrawerComponent";
+import Navbar from "../components/Navbar.tsx";
+import Drawer from "../components/Drawer.tsx";
 import '../App.css';
 
 const DocsPage = () => {
     return (
         <>
-            <NavbarComponent/>
-            <DrawerComponent/>
+            <Navbar/>
+            <Drawer/>
         </>
     );
 };

@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
-import InstallationDocs from "./components/docs/InstallationDocs.tsx";
+import InstallationDocs from "./components/docs/content/InstallationDocs.tsx";
 import './App.css';
 
 function App() {

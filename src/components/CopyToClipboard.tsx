@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {ClipboardIcon} from "@heroicons/react/24/outline";
 
-const CopyToClipBoard = ({text}: { text: string }) => {
+const CopyToClipboard = ({text}: { text: string }) => {
     const [tooltipText, setTooltipText] = useState("Copy");
 
     const handleCopy = () => {
@@ -21,4 +21,4 @@ const CopyToClipBoard = ({text}: { text: string }) => {
     );
 };
 
-export default CopyToClipBoard;
+export default CopyToClipboard;

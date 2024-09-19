@@ -1,9 +1,9 @@
-import HeroComponent from '../components/HeroComponent.tsx';
+import Hero from '../components/Hero.tsx';
 
 const HomePage = () => {
     return (
         <>
-            <HeroComponent/>
+            <Hero/>
         </>
     );
 }

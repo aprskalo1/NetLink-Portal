@@ -5,7 +5,7 @@ import {auth} from '../services/firebase';
 import {Link} from "react-router-dom";
 import AuthWrapper from '../components/auth/AuthWrapper.tsx';
 import AuthForm from '../components/auth/AuthForm.tsx';
-import Alert from '../components/AlertComponent.tsx';
+import Alert from '../components/Alert.tsx';
 import GoogleLoginButton from "../components/auth/GoogleLoginButton.tsx";
 import AppleLogInButton from "../components/auth/AppleLogInButton.tsx";
 

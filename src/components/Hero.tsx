@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import BannerPhoto from '../assets/landing-page-banner.png';
 
-const HeroComponent = () => {
+const Hero = () => {
     const [theme] = useState(localStorage.getItem('theme') || 'light');
 
     useEffect(() => {
@@ -45,4 +45,4 @@ const HeroComponent = () => {
     );
 };
 
-export default HeroComponent;
+export default Hero;

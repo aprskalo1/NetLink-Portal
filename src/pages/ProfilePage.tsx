@@ -28,7 +28,9 @@ const ProfilePage = () => {
 
     return (
         <>
-            <p className="text-4xl font-bold text-center mb-5">Welcome, {username}</p>
+            <p className="text-xl font-bold text-center mb-5 lg:text-4xl">
+                Welcome, {username}
+            </p>
             <div className="flex flex-col gap-3 lg:w-8/12">
                 <InputField
                     label="Dev Token"

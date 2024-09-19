@@ -18,7 +18,7 @@ const darkThemes = [
     "dim", "business", "sunset", "aqua"
 ];
 
-const NavbarComponent = () => {
+const Navbar = () => {
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme') || 'light');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
@@ -138,4 +138,4 @@ const NavbarComponent = () => {
     );
 };
 
-export default NavbarComponent;
+export default Navbar;

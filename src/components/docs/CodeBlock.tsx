@@ -1,5 +1,5 @@
 import React from "react";
-import CopyToClipBoard from "../CopyToClipBoard";
+import CopyToClipboard from "../CopyToClipboard.tsx";
 
 interface CodeBlockProps {
     code: string;
@@ -8,7 +8,7 @@ interface CodeBlockProps {
 
 const CodeBlock: React.FC<CodeBlockProps> = ({code, language = "text"}) => {
     return (
-        <div className="flex w-full">
+        <div className="flex w-full mb-4">
             <div className="bg-base-300 rounded-lg p-4 min-w-full mr-2">
                 <pre className="overflow-x-auto p-1 pr-10">
                     <code className={`text-sm language-${language}`}>
@@ -17,7 +17,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({code, language = "text"}) => {
                 </pre>
             </div>
 
-            <CopyToClipBoard text={code}/>
+            <CopyToClipboard text={code}/>
         </div>
     );
 };
