@@ -1,5 +1,6 @@
-import {useNavigate} from 'react-router-dom';
 import {GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
+import {authorizeFirebaseClient} from "../../services/api.ts";
+import {useNavigate} from 'react-router-dom';
 import {auth} from '../../services/firebase';
 import GoogleIcon from '../../assets/google-icon.png';
 
@@ -10,6 +11,11 @@ const GoogleLoginButton = () => {
     const handleGoogleLogin = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
+
+            const firebaseToken = await auth.currentUser!.getIdToken();
+            const accessToken = await authorizeFirebaseClient(firebaseToken);
+            localStorage.setItem('accessToken', accessToken);
+
             navigate('/docs/profile');
         } catch (error) {
             console.error('Google login failed:', error);

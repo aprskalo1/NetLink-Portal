@@ -1,4 +1,5 @@
 import {signInWithEmailAndPassword} from 'firebase/auth';
+import {authorizeFirebaseClient} from "../services/api.ts";
 import {auth} from '../services/firebase';
 import {useNavigate} from 'react-router-dom';
 import {Link} from "react-router-dom";
@@ -17,6 +18,11 @@ const LoginPage = () => {
         setError(null);
         try {
             await signInWithEmailAndPassword(auth, email, password);
+
+            const firebaseToken = await auth.currentUser!.getIdToken();
+            const accessToken = await authorizeFirebaseClient(firebaseToken);
+            localStorage.setItem('accessToken', accessToken);
+
             navigate('/docs/profile');
         } catch (err: unknown) {
             if (err instanceof Error) {

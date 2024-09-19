@@ -44,6 +44,7 @@ const Navbar = () => {
         try {
             await signOut(auth);
             setIsLoggedIn(false);
+            localStorage.removeItem('accessToken');
             navigate('/login');
         } catch (error) {
             console.error('Error logging out:', error);
