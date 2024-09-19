@@ -5,7 +5,7 @@ interface TextBlockProps {
 }
 
 const TextBlock = ({children}: TextBlockProps) => {
-    return <p className="mb-1">{children}</p>;
+    return <p className="mb-2">{children}</p>;
 };
 
 export default TextBlock;

@@ -6,7 +6,7 @@ interface AuthFormProps {
     buttonText: string;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({onSubmit, buttonText}) => {
+const AuthForm = ({onSubmit, buttonText}: AuthFormProps) => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 

@@ -1,4 +1,3 @@
-import React from "react";
 import CopyToClipboard from "../CopyToClipboard.tsx";
 
 interface CodeBlockProps {
@@ -6,7 +5,7 @@ interface CodeBlockProps {
     language?: string;
 }
 
-const CodeBlock: React.FC<CodeBlockProps> = ({code, language = "text"}) => {
+const CodeBlock = ({code, language = "text"}: CodeBlockProps) => {
     return (
         <div className="flex w-full mb-4">
             <div className="bg-base-300 rounded-lg p-4 min-w-full mr-2">

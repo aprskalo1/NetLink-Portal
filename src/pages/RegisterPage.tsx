@@ -1,15 +1,15 @@
 import {createUserWithEmailAndPassword} from 'firebase/auth';
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {auth} from '../services/firebase';
 import {Link} from "react-router-dom";
-import AuthWrapper from '../components/auth/AuthWrapper.tsx';
-import AuthForm from '../components/auth/AuthForm.tsx';
-import Alert from '../components/Alert.tsx';
-import GoogleLoginButton from "../components/auth/GoogleLoginButton.tsx";
-import AppleLogInButton from "../components/auth/AppleLogInButton.tsx";
+import AuthWrapper from '../components/auth/AuthWrapper';
+import AuthForm from '../components/auth/AuthForm';
+import Alert from '../components/Alert';
+import GoogleLoginButton from "../components/auth/GoogleLoginButton";
+import AppleLogInButton from "../components/auth/AppleLogInButton";
 
-const RegisterPage: React.FC = () => {
+const RegisterPage = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 

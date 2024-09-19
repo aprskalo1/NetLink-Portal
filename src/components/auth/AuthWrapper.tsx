@@ -5,7 +5,7 @@ interface AuthWrapperProps {
     children: React.ReactNode;
 }
 
-const AuthWrapper: React.FC<AuthWrapperProps> = ({title, children}) => {
+const AuthWrapper = ({title, children}: AuthWrapperProps) => {
     const [theme] = useState(localStorage.getItem('theme') || 'light');
 
     useEffect(() => {

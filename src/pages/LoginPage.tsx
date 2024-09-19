@@ -2,14 +2,14 @@ import {signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../services/firebase';
 import {useNavigate} from 'react-router-dom';
 import {Link} from "react-router-dom";
-import React, {useState} from 'react';
-import AuthWrapper from '../components/auth/AuthWrapper.tsx';
-import AuthForm from '../components/auth/AuthForm.tsx';
-import Alert from '../components/Alert.tsx';
-import GoogleLoginButton from "../components/auth/GoogleLoginButton.tsx";
-import AppleLogInButton from "../components/auth/AppleLogInButton.tsx";
+import {useState} from 'react';
+import AuthWrapper from '../components/auth/AuthWrapper';
+import AuthForm from '../components/auth/AuthForm';
+import Alert from '../components/Alert';
+import GoogleLoginButton from "../components/auth/GoogleLoginButton";
+import AppleLogInButton from "../components/auth/AppleLogInButton";
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 

@@ -18,7 +18,9 @@ const Drawer = () => {
                                     <li>
                                         <Link to={"/docs/install"}>Install</Link>
                                     </li>
-                                    <li><a>Use</a></li>
+                                    <li>
+                                        <Link to={"/docs/use"}>Use</Link>
+                                    </li>
                                     <li>
                                         <details open>
                                             <summary>Parent</summary>

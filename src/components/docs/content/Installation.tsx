@@ -3,7 +3,7 @@ import Title from "../Title";
 import SubTitle from "../SubTitle";
 import TextBlock from "../TextBlock";
 
-const InstallationDocs = () => {
+const Installation = () => {
     return (
         <div className="w-10/12">
             <Title>Installation</Title>
@@ -36,4 +36,4 @@ const InstallationDocs = () => {
     );
 };
 
-export default InstallationDocs;
+export default Installation;
