@@ -5,7 +5,7 @@ interface SubTitleProps {
 }
 
 const SubTitle = ({children}: SubTitleProps) => {
-    return <h3 className="text-2xl font-semibold mt-4 mb-2">{children}</h3>;
+    return <h3 className="text-2xl font-semibold mt-5 mb-1">{children}</h3>;
 };
 
 export default SubTitle;

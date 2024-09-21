@@ -22,11 +22,18 @@ const Drawer = () => {
                                         <Link to={"/docs/use"}>Use</Link>
                                     </li>
                                     <li>
+                                        <Link to={"/docs/overview"}>Quick Overview</Link>
+                                    </li>
+                                    <li>
                                         <details open>
-                                            <summary>Parent</summary>
+                                            <summary>Services & Features</summary>
                                             <ul>
-                                                <li><a>Submenu 1</a></li>
-                                                <li><a>Submenu 2</a></li>
+                                                <li>
+                                                    <Link to={"/docs/endusers"}>End Users</Link>
+                                                </li>
+                                                <li>
+                                                    <Link to={"/docs/sensors"}>Sensor Management</Link>
+                                                </li>
                                             </ul>
                                         </details>
                                     </li>
