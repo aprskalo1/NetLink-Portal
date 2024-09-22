@@ -8,7 +8,6 @@ import AuthWrapper from '../components/auth/AuthWrapper';
 import AuthForm from '../components/auth/AuthForm';
 import Alert from '../components/Alert';
 import GoogleLoginButton from "../components/auth/GoogleLoginButton";
-import AppleLogInButton from "../components/auth/AppleLogInButton";
 
 const LoginPage = () => {
     const [error, setError] = useState<string | null>(null);
@@ -42,7 +41,6 @@ const LoginPage = () => {
             <AuthForm onSubmit={handleLogin} buttonText="Login"/>
             <div className="flex justify-center">
                 <GoogleLoginButton/>
-                <AppleLogInButton/>
             </div>
             <p className="mt-2 text-center">
                 Don't have an account? <Link to={"/register"} className="text-primary">Register here</Link>
