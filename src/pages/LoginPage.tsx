@@ -26,8 +26,11 @@ const LoginPage = () => {
         } catch (err: unknown) {
             if (err instanceof Error) {
                 console.error(err.message);
-                if (err.message.includes('auth/invalid-credential')) {
+                if (err.message.includes('auth/wrong-password')) {
                     setError('Incorrect credentials. Please try again.');
+                }
+                if (err.message.includes('auth/user-not-found')) {
+                    setError('User not found. Please register an account.');
                 } else {
                     setError('An unexpected error occurred. Please try again later.');
                 }
