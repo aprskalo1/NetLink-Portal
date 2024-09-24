@@ -6,7 +6,7 @@ import SubTitle from "../SubTitle.tsx";
 const Sensors = () => {
     return (
         <div className="w-10/12">
-            <Title>Sensor Service</Title>
+            <Title>Sensor Management</Title>
             <TextBlock>
                 The `ISensorService` provides methods for managing sensors associated with an end user. Each method can
                 optionally accept an `endUserId`, allowing operations to be performed on behalf of a specific end user.
@@ -14,8 +14,7 @@ const Sensors = () => {
                 instantiate and use the `ISensorService` to manage sensors for a given end user.
             </TextBlock>
 
-            {/* New C# Constructor Syntax */}
-            <SubTitle>Service Instantiation (New C# Constructor)</SubTitle>
+            <SubTitle>Service Injection (New C# Primary Constructor)</SubTitle>
             <CodeBlock
                 code={
                     "public class TestClass(\n" +
@@ -31,8 +30,7 @@ const Sensors = () => {
                 language="csharp"
             />
 
-            {/* Older Constructor Method */}
-            <SubTitle>Service Instantiation (Older Constructor Method)</SubTitle>
+            <SubTitle>Service Injection (Older Constructor Method)</SubTitle>
             <CodeBlock
                 code={
                     "public class TestClass\n" +
@@ -57,18 +55,21 @@ const Sensors = () => {
             <TextBlock>
                 Adds a new sensor to the system. If an `endUserId` is provided, the sensor will be assigned to the
                 specified end user. If no `endUserId` is provided, the sensor will be associated with the currently
-                logged-in user.
+                logged-in user. Note that the configuration of the sensor device must include the retrieved sensor ID
+                for future use and recognition.
             </TextBlock>
             <CodeBlock
+                language="csharp"
                 code={
                     "var endUser = new EndUser(\"endUserId\");\n" +
                     "var sensor = new Sensor(\"Temperature Sensor\", \"Thermometer\", \"Celsius\");\n" +
                     "// Assigning sensor to a specific end user\n" +
                     "var sensorId = await _sensorService.AddSensorAsync(sensor, endUser.Id);\n\n" +
                     "// Defaulting to the logged-in user if no endUserId is provided\n" +
-                    "var sensorIdLoggedUser = await _sensorService.AddSensorAsync(sensor);"
+                    "var sensorIdLoggedUser = await _sensorService.AddSensorAsync(sensor);\n\n" +
+                    "// IMPORTANT: Store the retrieved sensorId in the actual device configuration for future use and recognition."
+
                 }
-                language="csharp"
             />
 
             <SubTitle>GetSensorByNameAsync</SubTitle>

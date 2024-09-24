@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-okaidia.css';
+import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-csharp';
 import CopyToClipboard from '../CopyToClipboard.tsx';
 

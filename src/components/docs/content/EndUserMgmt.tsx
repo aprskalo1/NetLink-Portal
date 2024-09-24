@@ -7,7 +7,7 @@ const EndUserMgmt = () => {
     return (
         <div className="w-10/12">
 
-            <Title>Services Integration</Title>
+            <Title>End User Session & Management</Title>
 
             <TextBlock>
                 The `IEndUserSessionManager` and `IEndUserManagementService` provide methods for managing the session of
@@ -15,7 +15,7 @@ const EndUserMgmt = () => {
                 Below are the service instantiation examples and method usages.
             </TextBlock>
 
-            <SubTitle>Service Instantiation (New C# Constructor)</SubTitle>
+            <SubTitle>Service Injection (New C# Primary Constructor)</SubTitle>
             <CodeBlock
                 code={
                     "public class TestClass(\n" +
@@ -31,7 +31,7 @@ const EndUserMgmt = () => {
                 language="csharp"
             />
 
-            <SubTitle>Service Instantiation (Older Constructor Method)</SubTitle>
+            <SubTitle>Service Injection (Older Constructor Method)</SubTitle>
             <CodeBlock
                 code={
                     "public class TestClass\n" +

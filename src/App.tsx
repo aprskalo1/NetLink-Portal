@@ -9,6 +9,14 @@ import Usage from "./components/docs/content/Usage.tsx";
 import QuickOverview from "./components/docs/content/QuickOverview.tsx";
 import EndUserMgmt from "./components/docs/content/EndUserMgmt.tsx";
 import Sensors from "./components/docs/content/Sensors.tsx";
+import Grouping from "./components/docs/content/Grouping.tsx";
+import RecordedValues from "./components/docs/content/RecordedValues.tsx";
+import RealTimeData from "./components/docs/content/RealTimeData.tsx";
+import Statistics from "./components/docs/content/Statistics.tsx";
+import HTTPRemoteValueRec from "./components/docs/content/HTTPRemoteValueRec.tsx";
+import MQTTRemoteValueRec from "./components/docs/content/MQTTRemoteValueRec.tsx";
+import GoodPractices from "./components/docs/content/GoodPractices.tsx";
+import ClosingRemarks from "./components/docs/content/ClosingRemarks.tsx";
 
 function App() {
     return (
@@ -22,6 +30,14 @@ function App() {
                     <Route path="overview" element={<QuickOverview/>}/>
                     <Route path="endusers" element={<EndUserMgmt/>}/>
                     <Route path="sensors" element={<Sensors/>}/>
+                    <Route path="groups" element={<Grouping/>}/>
+                    <Route path="recordingvalues" element={<RecordedValues/>}/>
+                    <Route path="realtimedata" element={<RealTimeData/>}/>
+                    <Route path="statistics" element={<Statistics/>}/>
+                    <Route path="httpvaluerecording" element={<HTTPRemoteValueRec/>}/>
+                    <Route path="mqttvaluerecording" element={<MQTTRemoteValueRec/>}/>
+                    <Route path="goodpractices" element={<GoodPractices/>}/>
+                    <Route path="wrapup" element={<ClosingRemarks/>}/>
                     <Route path="profile" element={<ProfilePage/>}/>
                 </Route>
                 <Route path="/register" element={<RegisterPage/>}/>
