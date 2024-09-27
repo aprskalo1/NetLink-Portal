@@ -15,8 +15,10 @@ const CopyToClipboard = ({text}: { text: string }) => {
     };
 
     return (
-        <button onClick={handleCopy} className="tooltip" data-tip={tooltipText}>
-            <ClipboardIcon className="h-6 w-6"/>
+        <button onClick={handleCopy}>
+            <div className="max-h-10 tooltip" data-tip={tooltipText}>
+                <ClipboardIcon className="h-6 w-6"/>
+            </div>
         </button>
     );
 };
