@@ -50,9 +50,14 @@ const ClosingRemarks = () => {
 
             <SubTitle>Community and Support</SubTitle>
             <TextBlock>
-                If you have any questions, feel free to reach out and contact us at support@my-domain.com. We also
-                welcome contributions and suggestions on our GitHub repository.
+                If you have any questions, feel free to reach out and contact us at&nbsp;
+                <a href="mailto:support@netlink-solution.com"
+                   className="text-blue-600 underline">support@netlink-solution.com</a>.
+                For further inquiries, you can also reach out to&nbsp;
+                <a href="mailto:contributions@netlink-solution.com"
+                   className="text-blue-600 underline">contributions@netlink-solution.com</a>.
             </TextBlock>
+
         </div>
     );
 };

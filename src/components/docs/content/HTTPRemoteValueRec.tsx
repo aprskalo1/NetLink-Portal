@@ -22,7 +22,7 @@ const HTTPRemoteValueRec = () => {
             </TextBlock>
             <CodeBlock
                 language="plaintext"
-                code={"POST https://netlink.com/api/RecordedValues/RecordValueRemotely?sensorId=<sensor-id>"}
+                code={"POST https://netlink-solution.com/api/RecordedValues/RecordValueRemotely?sensorId=<sensor-id>"}
             />
             <TextBlock>
                 The request must include the sensor ID as a query parameter and the sensor value as a JSON payload in
@@ -60,7 +60,7 @@ const HTTPRemoteValueRec = () => {
                     "const char* ssid = \"Your-WiFi-SSID\";\n" +
                     "const char* password = \"Your-WiFi-Password\";\n\n" +
                     "// NetLink API endpoint\n" +
-                    "const String apiEndpoint = \"https://netlink.com/api/RecordedValues/RecordValueRemotely\";\n" +
+                    "const String apiEndpoint = \"https://netlink-solution.com/api/RecordedValues/RecordValueRemotely\";\n" +
                     "const String sensorId = \"Your-Sensor-ID\";\n\n" +
                     "void setup() {\n" +
                     "  Serial.begin(115200);\n" +

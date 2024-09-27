@@ -78,7 +78,7 @@ const MQTTRemoteValueRec = () => {
                     "// Wi-Fi and MQTT credentials\n" +
                     "const char* ssid = \"Your-WiFi-SSID\";\n" +
                     "const char* password = \"Your-WiFi-Password\";\n" +
-                    "const char* mqtt_server = \"my-domain.com\";\n" +
+                    "const char* mqtt_server = \"netlink-solution.com\";\n" +
                     "const int mqtt_port = 1883;\n" +
                     "const char* mqtt_topic = \"/sensors/Your-Sensor-ID/recordedvalue\";\n\n" +
                     "WiFiClient espClient;\n" +

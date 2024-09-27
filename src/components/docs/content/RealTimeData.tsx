@@ -90,7 +90,7 @@ const RealTimeData = () => {
                 In addition to using the `ISensorSubscriptionService`, developers can also directly integrate with the
                 SignalR WebSocket
                 using custom code in other languages like JavaScript. The WebSocket listens on the URL
-                `https://my-domain.com/sensorHub`. Below is an example of how you can use JavaScript to subscribe to
+                `https://netlink-solution.com/sensorHub`. Below is an example of how you can use JavaScript to subscribe to
                 sensor updates and dynamically update a webpage with new sensor values.
             </TextBlock>
             <CodeBlock
@@ -101,7 +101,7 @@ const RealTimeData = () => {
                     "<script type=\"text/javascript\">\n" +
                     "    // Set up SignalR connection to the hub\n" +
                     "    const connection = new signalR.HubConnectionBuilder()\n" +
-                    "        .withUrl(\"https://my-domain.com/sensorHub\")\n" +
+                    "        .withUrl(\"https://netlink-solution.com/sensorHub\")\n" +
                     "        .build();\n\n" +
                     "    // Start the connection and subscribe to the sensor\n" +
                     "    connection.start()\n" +
