@@ -18,14 +18,14 @@ const Installation = () => {
                 To install the library using the NuGet package manager in PowerShell, use the following command:
             </TextBlock>
 
-            <CodeBlock code="Install-Package NetLink"/>
+            <CodeBlock code="Install-Package NetLinkCore"/>
 
             <SubTitle>Option 2: Install via .NET CLI</SubTitle>
             <TextBlock>
                 Alternatively, you can use the .NET CLI to install the package:
             </TextBlock>
 
-            <CodeBlock code="dotnet add package NetLink"/>
+            <CodeBlock code="dotnet add package NetLinkCore"/>
 
             <TextBlock>
                 Once installed, you can start using the library in your project by importing it as follows:
