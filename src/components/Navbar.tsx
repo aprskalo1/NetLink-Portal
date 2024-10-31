@@ -5,7 +5,8 @@ import {
     UserCircleIcon,
     ArrowRightEndOnRectangleIcon,
     ArrowLeftStartOnRectangleIcon,
-    ChartBarSquareIcon
+    ChartBarSquareIcon,
+    DocumentChartBarIcon
 } from "@heroicons/react/24/outline";
 import {Link, useNavigate} from 'react-router-dom';
 import {signOut} from 'firebase/auth';
@@ -33,6 +34,7 @@ const Navbar = () => {
     const isLoggedIn = useSelector((state: RootState) => state.user.developerId !== null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isDashboard = location.pathname === "/dashboard";
 
 
     useEffect(() => {
@@ -59,11 +61,13 @@ const Navbar = () => {
 
     return (
         <div className="navbar bg-base-100">
-            <div className="flex-none lg:hidden">
-                <label htmlFor="my-drawer-2" className="btn btn-square btn-ghost">
-                    <Bars3Icon className="h-6 w-6"/>
-                </label>
-            </div>
+            {!isDashboard && (
+                <div className="flex-none lg:hidden">
+                    <label htmlFor="my-drawer-2" className="btn btn-square btn-ghost">
+                        <Bars3Icon className="h-6 w-6"/>
+                    </label>
+                </div>
+            )}
 
             <div className="flex-1">
                 <Link to={"/"} className="text-lg font-bold ms-2 md:ms-6">
@@ -78,9 +82,13 @@ const Navbar = () => {
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
                     {isLoggedIn && (
-                        <Link to={"/dashboard"} className="btn btn-ghost p-1 md:me-4">
-                            <span className="hidden lg:inline">Dashboard</span>
-                            <ChartBarSquareIcon className="h-6 w-6 lg:hidden"/>
+                        <Link to={isDashboard ? "/docs/install" : "/dashboard"} className="btn btn-ghost p-1 md:me-4">
+                            <span className="hidden lg:inline">{isDashboard ? "Docs" : "Dashboard"}</span>
+                            {isDashboard ? (
+                                <DocumentChartBarIcon className="h-6 w-6 lg:hidden"/>
+                            ) : (
+                                <ChartBarSquareIcon className="h-6 w-6 lg:hidden"/>
+                            )}
                         </Link>
                     )}
 
