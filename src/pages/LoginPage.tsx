@@ -8,10 +8,15 @@ import AuthWrapper from '../components/auth/AuthWrapper';
 import AuthForm from '../components/auth/AuthForm';
 import Alert from '../components/Alert';
 import GoogleLoginButton from "../components/auth/GoogleLoginButton";
+import {jwtDecode} from "jwt-decode";
+import {useDispatch} from "react-redux";
+import {setUser} from "../store/userSlice.ts";
+import {CustomJwtPayload} from "../types/types.ts";
 
 const LoginPage = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogin = async (email: string, password: string) => {
         setError(null);
@@ -21,6 +26,9 @@ const LoginPage = () => {
             const firebaseToken = await auth.currentUser!.getIdToken();
             const accessToken = await authorizeFirebaseClient(firebaseToken);
             localStorage.setItem('accessToken', accessToken);
+
+            const {developerId, username, devToken, active, createdAt} = jwtDecode<CustomJwtPayload>(accessToken);
+            dispatch(setUser({developerId, username, devToken, active: active === "True", createdAt}));
 
             navigate('/docs/profile');
         } catch (err: unknown) {

@@ -17,6 +17,8 @@ import HTTPRemoteValueRec from "./components/docs/content/HTTPRemoteValueRec.tsx
 import MQTTRemoteValueRec from "./components/docs/content/MQTTRemoteValueRec.tsx";
 import GoodPractices from "./components/docs/content/GoodPractices.tsx";
 import ClosingRemarks from "./components/docs/content/ClosingRemarks.tsx";
+import DashboardPage from "./pages/DashboardPage.tsx";
+import LoginProtectedRoute from "./components/auth/LoginProtectedRoute.tsx";
 
 function App() {
     return (
@@ -38,10 +40,28 @@ function App() {
                     <Route path="mqttvaluerecording" element={<MQTTRemoteValueRec/>}/>
                     <Route path="goodpractices" element={<GoodPractices/>}/>
                     <Route path="wrapup" element={<ClosingRemarks/>}/>
-                    <Route path="profile" element={<ProfilePage/>}/>
+                    <Route
+                        path="profile"
+                        element={
+                            <LoginProtectedRoute>
+                                <ProfilePage/>
+                            </LoginProtectedRoute>
+                        }
+                    />
                 </Route>
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
+
+                <Route path="/dashboard" element={<DashboardPage/>}/>
+
+                <Route
+                    path="/dashboard"
+                    element={
+                        <LoginProtectedRoute>
+                            <DashboardPage/>
+                        </LoginProtectedRoute>
+                    }
+                />
             </Routes>
         </>
     )

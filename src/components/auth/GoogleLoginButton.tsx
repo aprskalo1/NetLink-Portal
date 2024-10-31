@@ -3,10 +3,15 @@ import {authorizeFirebaseClient} from "../../services/api.ts";
 import {useNavigate} from 'react-router-dom';
 import {auth} from '../../services/firebase';
 import GoogleIcon from '../../assets/google-icon.png';
+import {useDispatch} from "react-redux";
+import {jwtDecode} from "jwt-decode";
+import {setUser} from "../../store/userSlice.ts";
+import {CustomJwtPayload} from "../../types/types.ts";
 
 const GoogleLoginButton = () => {
     const navigate = useNavigate();
     const googleProvider = new GoogleAuthProvider();
+    const dispatch = useDispatch();
 
     const handleGoogleLogin = async () => {
         try {
@@ -15,6 +20,9 @@ const GoogleLoginButton = () => {
             const firebaseToken = await auth.currentUser!.getIdToken();
             const accessToken = await authorizeFirebaseClient(firebaseToken);
             localStorage.setItem('accessToken', accessToken);
+
+            const {developerId, username, devToken, active, createdAt} = jwtDecode<CustomJwtPayload>(accessToken);
+            dispatch(setUser({developerId, username, devToken, active: active === "True", createdAt}));
 
             navigate('/docs/profile');
         } catch (error) {

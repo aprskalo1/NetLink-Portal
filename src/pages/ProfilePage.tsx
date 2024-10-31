@@ -1,54 +1,10 @@
-import {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
-import {onAuthStateChanged} from "firebase/auth";
-import {auth} from "../services/firebase.ts";
-import {jwtDecode} from "jwt-decode";
+import {useSelector} from "react-redux";
 import InputField from '../components/InputField';
-import CopyToClipboard from "../components/CopyToClipboard.tsx";
-
-interface DecodedToken {
-    developerId: string;
-    username: string;
-    devToken: string;
-    active: string;
-    createdAt: string;
-}
+import CopyToClipboard from "../components/CopyToClipboard";
+import {RootState} from "../store/store";
 
 const ProfilePage = () => {
-    const [profileData, setProfileData] = useState({
-        username: '',
-        apiKey: '',
-        status: '',
-        createdAt: ''
-    });
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                navigate('/login');
-            } else {
-                const token = localStorage.getItem('accessToken');
-                if (token) {
-                    try {
-                        const decodedToken: DecodedToken = jwtDecode(token);
-
-                        setProfileData({
-                            username: decodedToken.username,
-                            apiKey: decodedToken.devToken,
-                            status: decodedToken.active === "True" ? "Active" : "Inactive",
-                            createdAt: new Date(decodedToken.createdAt).toLocaleDateString(),
-                        });
-                    } catch (error) {
-                        console.error("Invalid token:", error);
-                        navigate('/login');
-                    }
-                }
-            }
-        });
-
-        return () => unsubscribe();
-    }, [navigate]);
+    const profileData = useSelector((state: RootState) => state.user);
 
     return (
         <>
@@ -60,30 +16,30 @@ const ProfilePage = () => {
                     <InputField
                         label="Dev Token"
                         type="text"
-                        value={profileData.apiKey}
+                        value={profileData.devToken || ""}
                         placeholder="Your API Key"
                         readonly
                     />
-                    <CopyToClipboard text={profileData.apiKey}/>
+                    <CopyToClipboard text={profileData.devToken || ""}/>
                 </div>
                 <InputField
                     label="Username"
                     type="text"
-                    value={profileData.username}
+                    value={profileData.username || ""}
                     placeholder="user@example.com"
                     readonly
                 />
                 <InputField
                     label="Status"
                     type="text"
-                    value={profileData.status}
+                    value={profileData.active ? "Active" : "Inactive"}
                     placeholder="Active / Inactive"
                     readonly
                 />
                 <InputField
                     label="Created At"
                     type="text"
-                    value={profileData.createdAt}
+                    value={profileData.createdAt ? new Date(profileData.createdAt).toLocaleDateString() : ""}
                     placeholder="mm/dd/yyyy"
                     readonly
                 />

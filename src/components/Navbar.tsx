@@ -1,10 +1,20 @@
 import {useEffect, useState} from 'react';
-import {PaintBrushIcon, Bars3Icon, UserCircleIcon, ArrowRightEndOnRectangleIcon, ArrowLeftStartOnRectangleIcon} from "@heroicons/react/24/outline";
+import {
+    PaintBrushIcon,
+    Bars3Icon,
+    UserCircleIcon,
+    ArrowRightEndOnRectangleIcon,
+    ArrowLeftStartOnRectangleIcon,
+    ChartBarSquareIcon
+} from "@heroicons/react/24/outline";
 import {Link, useNavigate} from 'react-router-dom';
-import {onAuthStateChanged, signOut} from 'firebase/auth';
+import {signOut} from 'firebase/auth';
+import {useDispatch, useSelector} from 'react-redux';
 import logoDark from '../assets/logo-dark.png';
 import logoLight from '../assets/logo-light.png';
 import {auth} from "../services/firebase.ts";
+import {clearUser} from "../store/userSlice.ts";
+import {RootState} from "../store/store.ts";
 
 const lightThemes = [
     "light", "cupcake", "bumblebee", "emerald", "corporate",
@@ -20,31 +30,20 @@ const darkThemes = [
 
 const Navbar = () => {
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme') || 'light');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isLoggedIn = useSelector((state: RootState) => state.user.developerId !== null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
         document.querySelector('html')?.setAttribute('data-theme', currentTheme);
     }, [currentTheme]);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setIsLoggedIn(true);
-            } else {
-                setIsLoggedIn(false);
-            }
-        });
-        return () => unsubscribe();
-    }, []);
-
-
     const handleLogout = async () => {
         try {
             await signOut(auth);
-            setIsLoggedIn(false);
             localStorage.removeItem('accessToken');
+            dispatch(clearUser());
             navigate('/login');
         } catch (error) {
             console.error('Error logging out:', error);
@@ -67,7 +66,7 @@ const Navbar = () => {
             </div>
 
             <div className="flex-1">
-                <Link to={"/"} className="text-lg font-bold ms-6">
+                <Link to={"/"} className="text-lg font-bold ms-2 md:ms-6">
                     <img
                         src={isLightTheme ? logoLight : logoDark}
                         alt="NetLink Logo"
@@ -78,6 +77,13 @@ const Navbar = () => {
 
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
+                    {isLoggedIn && (
+                        <Link to={"/dashboard"} className="btn btn-ghost p-1 md:me-4">
+                            <span className="hidden lg:inline">Dashboard</span>
+                            <ChartBarSquareIcon className="h-6 w-6 lg:hidden"/>
+                        </Link>
+                    )}
+
                     <button className="btn btn-ghost p-1 md:me-4" onClick={() => {
                         const modal = document.getElementById('choose-theme-modal') as HTMLDialogElement | null;
                         if (modal) {

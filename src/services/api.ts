@@ -33,3 +33,16 @@ export const authorizeFirebaseClient = async (firebaseToken: string): Promise<st
         throw error;
     }
 };
+
+export const fetchPaginatedEndUsers = async (page: number, pageSize: number) => {
+    try {
+        const response = await apiClient.get(`/api/EndUsers/ListPagedDevelopersEndUsers`, {
+            params: {page, pageSize},
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching paginated end users:", error);
+        throw error;
+    }
+};
+
