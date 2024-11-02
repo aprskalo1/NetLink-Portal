@@ -17,6 +17,17 @@ apiClient.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
+apiClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            localStorage.removeItem('accessToken');
+            window.location.href = "/login"; // Adjust the path as needed
+        }
+        return Promise.reject(error);
+    }
+);
+
 export const authorizeFirebaseClient = async (firebaseToken: string): Promise<string> => {
     try {
         const response = await axios.post(
@@ -34,15 +45,32 @@ export const authorizeFirebaseClient = async (firebaseToken: string): Promise<st
     }
 };
 
-export const fetchPaginatedEndUsers = async (page: number, pageSize: number) => {
+export const fetchPaginatedEndUsers = async (page: number, pageSize: number, searchTerm = "") => {
     try {
         const response = await apiClient.get(`/api/EndUsers/ListPagedDevelopersEndUsers`, {
-            params: {page, pageSize},
+            params: {page, pageSize, searchTerm},
         });
         return response.data;
     } catch (error) {
         console.error("Error fetching paginated end users:", error);
         throw error;
     }
+};
+
+
+export const deactivateEndUser = async (endUserId: string) => {
+    return apiClient.patch(`/api/EndUsers/DeactivateEndUser`, null, {params: {endUserId}});
+};
+
+export const reactivateEndUser = async (endUserId: string) => {
+    return apiClient.patch(`/api/EndUsers/ReactivateEndUser`, null, {params: {endUserId}});
+};
+
+export const deleteEndUser = async (endUserId: string) => {
+    return apiClient.patch(`/api/EndUsers/SoftDeleteEndUser`, null, {params: {endUserId}});
+};
+
+export const restoreEndUser = async (endUserId: string) => {
+    return apiClient.patch(`/api/EndUsers/RestoreEndUser`, null, {params: {endUserId}});
 };
 
