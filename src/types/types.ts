@@ -27,3 +27,13 @@ export interface EndUser {
     active: boolean;
 }
 
+export interface Sensor {
+    id: string;
+    deviceName: string | null;
+    deviceType: string | null;
+    measurementUnit: string | null;
+    deviceLocation: string | null;
+    deviceDescription: string | null;
+    createdAt: string;
+}
+

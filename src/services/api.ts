@@ -57,7 +57,6 @@ export const fetchPaginatedEndUsers = async (page: number, pageSize: number, sea
     }
 };
 
-
 export const deactivateEndUser = async (endUserId: string) => {
     return apiClient.patch(`/api/EndUsers/DeactivateEndUser`, null, {params: {endUserId}});
 };
@@ -74,3 +73,14 @@ export const restoreEndUser = async (endUserId: string) => {
     return apiClient.patch(`/api/EndUsers/RestoreEndUser`, null, {params: {endUserId}});
 };
 
+export const fetchPaginatedEndUserSensors = async (endUserId: string, page: number, pageSize: number, searchTerm = "") => {
+    try {
+        const response = await apiClient.get(`/api/EndUsers/ListPagedEndUserSensors`, {
+            params: {endUserId, page, pageSize, searchTerm},
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching paginated end user sensors:", error);
+        throw error;
+    }
+};

@@ -119,7 +119,7 @@ const EndUserCard = ({user}: EndUserCardProps) => {
                         <ArrowRightIcon className="w-5 h-5"/>
                     </Link>
                     <div className="dropdown dropdown-left dropdown-end flex justify-end">
-                        <PencilSquareIcon tabIndex={0} role="button" className="btn btn-sm p-0.5"/>
+                        <PencilSquareIcon tabIndex={0} role="button" className="btn btn-sm btn-outline p-0.5"/>
                         <ul tabIndex={0}
                             className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                             {isDeleted ? (
