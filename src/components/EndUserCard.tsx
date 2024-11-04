@@ -1,15 +1,15 @@
 ﻿import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import {ArrowRightIcon} from "@heroicons/react/24/solid";
-import {Link} from "react-router-dom";
 import {EndUser} from "../types/types.ts";
 import {deactivateEndUser, reactivateEndUser, deleteEndUser, restoreEndUser} from "../services/api.ts";
 import {useState} from "react";
 
 interface EndUserCardProps {
     user: EndUser;
+    onViewSensors: (endUserId: string) => void;
 }
 
-const EndUserCard = ({user}: EndUserCardProps) => {
+const EndUserCard = ({user, onViewSensors}: EndUserCardProps) => {
     const [isActive, setIsActive] = useState(user.active);
     const [isDeleted, setIsDeleted] = useState(!!user.deletedAt);
     const [deletedAt, setDeletedAt] = useState(user.deletedAt ? new Date(user.deletedAt).toLocaleString() : null);
@@ -61,7 +61,7 @@ const EndUserCard = ({user}: EndUserCardProps) => {
                 <div className="flex justify-between items-center">
                     <label className="input input-bordered input-sm flex items-center gap-2">
                         Id
-                        <input type="text" className="grow" placeholder={user.id || "n/a"} readOnly/>
+                        <input type="text" className="grow" value={user.id || "n/a"} readOnly/>
                     </label>
                     <div className={`badge ${isActive ? 'badge-success' : 'badge-error'}`}>
                         {isActive ? "Active" : "Inactive"}
@@ -70,22 +70,22 @@ const EndUserCard = ({user}: EndUserCardProps) => {
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
                     Username
-                    <input type="text" className="grow" placeholder={user.username || "n/a"} readOnly/>
+                    <input type="text" className="grow" value={user.username || "n/a"} readOnly/>
                 </label>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
                     Email
-                    <input type="text" className="grow" placeholder={user.email || "n/a"} readOnly/>
+                    <input type="text" className="grow" value={user.email || "n/a"} readOnly/>
                 </label>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
                     First Name
-                    <input type="text" className="grow" placeholder={user.firstName || "n/a"} readOnly/>
+                    <input type="text" className="grow" value={user.firstName || "n/a"} readOnly/>
                 </label>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
                     Last Name
-                    <input type="text" className="grow" placeholder={user.lastName || "n/a"} readOnly/>
+                    <input type="text" className="grow" value={user.lastName || "n/a"} readOnly/>
                 </label>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
@@ -93,7 +93,7 @@ const EndUserCard = ({user}: EndUserCardProps) => {
                     <input
                         type="text"
                         className="grow"
-                        placeholder={user.createdAt ? new Date(user.createdAt).toLocaleString() : "n/a"}
+                        value={user.createdAt ? new Date(user.createdAt).toLocaleString() : "n/a"}
                         readOnly
                     />
                 </label>
@@ -103,7 +103,7 @@ const EndUserCard = ({user}: EndUserCardProps) => {
                     <input
                         type="text"
                         className="grow"
-                        placeholder={isDeleted && deletedAt ? deletedAt : "n/a"}
+                        value={isDeleted && deletedAt ? deletedAt : "n/a"}
                         readOnly
                     />
                 </label>
@@ -111,13 +111,13 @@ const EndUserCard = ({user}: EndUserCardProps) => {
                 <hr/>
 
                 <div className="flex justify-between items-center">
-                    <Link
-                        to={`/user/${user.id}/sensors`}
+                    <button
+                        onClick={() => onViewSensors(user.id)}
                         className="btn btn-outline btn-wide btn-primary btn-sm flex items-center gap-2 rounded-xl"
                     >
                         End Users Sensors
                         <ArrowRightIcon className="w-5 h-5"/>
-                    </Link>
+                    </button>
                     <div className="dropdown dropdown-left dropdown-end flex justify-end">
                         <PencilSquareIcon tabIndex={0} role="button" className="btn btn-sm btn-outline p-0.5"/>
                         <ul tabIndex={0}
@@ -145,7 +145,7 @@ const EndUserCard = ({user}: EndUserCardProps) => {
                                     )}
                                     <li>
                                         <button onClick={handleDelete}
-                                                className="btn btn-outline btn-error btn-sm m-1">Delete
+                                                className="btn btn-outline btn-error btn-sm m-1">Soft Delete
                                         </button>
                                     </li>
                                 </>

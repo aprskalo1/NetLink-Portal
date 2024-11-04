@@ -1,4 +1,5 @@
 import axios from "axios";
+import {Sensor} from "../types/types.ts";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
@@ -81,6 +82,51 @@ export const fetchPaginatedEndUserSensors = async (endUserId: string, page: numb
         return response.data;
     } catch (error) {
         console.error("Error fetching paginated end user sensors:", error);
+        throw error;
+    }
+};
+
+export const fetchSensorDetails = async (sensorId: string, endUserId: string): Promise<Sensor> => {
+    try {
+        const response = await apiClient.get(`/api/Sensors/GetSensorById`, {
+            params: {sensorId, endUserId},
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching sensor details:", error);
+        throw error;
+    }
+};
+
+export const deleteSensor = async (sensorId: string, endUserId: string) => {
+    try {
+        await apiClient.delete(`/api/Sensors/DeleteSensor`, {params: {sensorId, endUserId}});
+    } catch (error) {
+        console.error("Error deleting sensor:", error);
+        throw error;
+    }
+}
+
+export const updateSensor = async (sensorId: string, endUserId: string, updatedSensorData: Partial<Sensor>) => {
+    try {
+        const response = await apiClient.put(`/api/Sensors/UpdateSensor`, updatedSensorData, {
+            params: {sensorId, endUserId},
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error updating sensor:", error);
+        throw error;
+    }
+};
+
+export const addSensor = async (endUserId: string, newSensorData: Partial<Sensor>) => {
+    try {
+        const response = await apiClient.post(`/api/Sensors/AddSensor`, newSensorData, {
+            params: {endUserId},
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error adding sensor:", error);
         throw error;
     }
 };
