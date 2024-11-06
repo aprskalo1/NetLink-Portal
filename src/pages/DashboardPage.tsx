@@ -1,20 +1,23 @@
-﻿import {useState} from "react";
+﻿import {useDispatch, useSelector} from "react-redux";
 import Navbar from "../components/Navbar.tsx";
 import EndUserContainer from "../components/EndUserContainer.tsx";
 import SensorContainer from "../components/SensorContainer.tsx";
+import {RootState} from "../store/store.ts";
+import {setActiveContainer, setSelectedEndUserId} from "../store/dashboardSlice";
 
 const DashboardPage = () => {
-    const [activeContainer, setActiveContainer] = useState<"endUsers" | "sensors">("endUsers");
-    const [selectedEndUserId, setSelectedEndUserId] = useState<string | null>(null);
+    const dispatch = useDispatch();
+    const activeContainer = useSelector((state: RootState) => state.dashboard.activeContainer);
+    const selectedEndUserId = useSelector((state: RootState) => state.dashboard.selectedEndUserId);
 
     const handleViewSensors = (endUserId: string) => {
-        setSelectedEndUserId(endUserId);
-        setActiveContainer("sensors");
+        dispatch(setSelectedEndUserId(endUserId));
+        dispatch(setActiveContainer("sensors"));
     };
 
     const handleBackToEndUsers = () => {
-        setActiveContainer("endUsers");
-        setSelectedEndUserId(null);
+        dispatch(setActiveContainer("endUsers"));
+        dispatch(setSelectedEndUserId(null));
     };
 
     return (

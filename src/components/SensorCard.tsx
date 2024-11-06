@@ -1,9 +1,9 @@
 import {useState} from "react";
 import {ArrowRightIcon} from "@heroicons/react/24/solid";
-import {Link} from "react-router-dom";
 import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import {Sensor} from "../types/types";
 import {deleteSensor} from "../services/api";
+import RecordingsModal from "./RecordingsModal.tsx";
 
 interface SensorCardProps {
     sensor: Sensor;
@@ -15,6 +15,7 @@ interface SensorCardProps {
 
 const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCardProps) => {
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleDelete = async () => {
         if (isDeleting) return;
@@ -67,13 +68,13 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
                 </label>
 
                 <div className="flex justify-between items-center">
-                    <Link
-                        to={`/sensor/${sensor.id}/details`}
+                    <button
+                        onClick={() => setIsModalOpen(true)} // Open modal on button click
                         className="btn btn-outline btn-wide btn-primary btn-sm flex items-center gap-2 rounded-xl"
                     >
                         Recordings
                         <ArrowRightIcon className="w-5 h-5"/>
-                    </Link>
+                    </button>
                     <div className="dropdown dropdown-left dropdown-end flex justify-end">
                         <PencilSquareIcon tabIndex={0} role="button" className="btn btn-sm btn-outline p-0.5"/>
                         <ul tabIndex={0}
@@ -93,6 +94,14 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
                     </div>
                 </div>
             </div>
+            {isModalOpen && (
+                <RecordingsModal
+                    sensor={sensor}
+                    sensorId={sensor.id}
+                    endUserId={endUserId}
+                    onClose={() => setIsModalOpen(false)} // Pass function to close modal
+                />
+            )}
         </div>
     );
 };

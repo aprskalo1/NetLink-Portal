@@ -37,3 +37,7 @@ export interface Sensor {
     createdAt: string;
 }
 
+export interface RecordedValue {
+    value: number;
+    recordedAt: string;
+}

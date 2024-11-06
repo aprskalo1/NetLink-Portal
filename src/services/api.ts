@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Sensor} from "../types/types.ts";
+import {RecordedValue, Sensor} from "../types/types.ts";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
@@ -127,6 +127,25 @@ export const addSensor = async (endUserId: string, newSensorData: Partial<Sensor
         return response.data;
     } catch (error) {
         console.error("Error adding sensor:", error);
+        throw error;
+    }
+};
+
+export const fetchRecordedValues = async (
+    sensorId: string,
+    endUserId: string,
+    quantity?: number,
+    isAscending: boolean = true,
+    startDate?: string,
+    endDate?: string
+): Promise<RecordedValue[]> => {
+    try {
+        const response = await apiClient.get(`/api/RecordedValues/GetRecordedValues`, {
+            params: {sensorId, endUserId, quantity, isAscending, startDate, endDate},
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching recorded values:", error);
         throw error;
     }
 };

@@ -68,7 +68,6 @@ const SensorContainer = ({endUserId, onBack}: SensorContainerProps) => {
         }
     };
 
-
     const openAddSensorModal = () => {
         setIsEditMode(false);
         setCurrentSensor(undefined);
