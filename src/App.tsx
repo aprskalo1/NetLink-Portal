@@ -19,10 +19,13 @@ import GoodPractices from "./components/docs/content/GoodPractices.tsx";
 import ClosingRemarks from "./components/docs/content/ClosingRemarks.tsx";
 import DashboardPage from "./pages/DashboardPage.tsx";
 import LoginProtectedRoute from "./components/auth/LoginProtectedRoute.tsx";
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from "react-toastify";
 
 function App() {
     return (
         <>
+            <ToastContainer position="bottom-right" autoClose={3000}/>
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/docs" element={<DocsPage/>}>

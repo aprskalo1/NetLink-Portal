@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.toast-success {
+    background-color: #28a745 !important;
+    color: white;
+}
+
+.toast-error {
+    background-color: #dc3545 !important;
+    color: white;
+}

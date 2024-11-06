@@ -54,7 +54,7 @@ const EndUserContainer = ({onViewSensors}: EndUserContainerProps) => {
                         <EndUserCard key={user.id} user={user} onViewSensors={onViewSensors}/>
                     ))
                 ) : (
-                    !isLoading && <p className="mt-10">No data available to show.</p>
+                    !isLoading && <p className="mt-10">No EndUser data available to show.</p>
                 )}
             </div>
             {endUsers.length > 0 && (
