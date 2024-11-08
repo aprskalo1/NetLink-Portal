@@ -226,3 +226,19 @@ export const deleteDeveloper = async (developerId: string) => {
         throw new Error(errorMessage);
     }
 };
+
+export const fetchEndUserGroups = async (endUserId: string) => {
+    try {
+        const response = await apiClient.get(`/api/Grouping/GetEndUserGroups`, {
+            params: {endUserId},
+        });
+        return response.data;
+    } catch (error: unknown) {
+        const errorMessage =
+            error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to fetch groups.";
+        toast.error(errorMessage);
+        throw error;
+    }
+};

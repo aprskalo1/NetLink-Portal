@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface DashboardState {
-    activeContainer: "endUsers" | "sensors";
+    activeContainer: "endUsers" | "sensors" | "groups";
     selectedEndUserId: string | null;
 }
 
 const initialState: DashboardState = {
-    activeContainer: "endUsers", // Default to "endUsers"
+    activeContainer: "endUsers",
     selectedEndUserId: null,
 };
 
@@ -14,7 +14,7 @@ const dashboardSlice = createSlice({
     name: "dashboard",
     initialState,
     reducers: {
-        setActiveContainer: (state, action: PayloadAction<"endUsers" | "sensors">) => {
+        setActiveContainer: (state, action: PayloadAction<"endUsers" | "sensors" | "groups">) => {
             state.activeContainer = action.payload;
         },
         setSelectedEndUserId: (state, action: PayloadAction<string | null>) => {

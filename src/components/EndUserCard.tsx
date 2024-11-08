@@ -1,5 +1,4 @@
 ﻿import {PencilSquareIcon} from "@heroicons/react/24/outline";
-import {ArrowRightIcon} from "@heroicons/react/24/solid";
 import {EndUser} from "../types/types.ts";
 import {deactivateEndUser, reactivateEndUser, deleteEndUser, restoreEndUser} from "../services/api.ts";
 import {useState} from "react";
@@ -7,9 +6,10 @@ import {useState} from "react";
 interface EndUserCardProps {
     user: EndUser;
     onViewSensors: (endUserId: string) => void;
+    onViewGroups: (endUserId: string) => void;
 }
 
-const EndUserCard = ({user, onViewSensors}: EndUserCardProps) => {
+const EndUserCard = ({user, onViewSensors, onViewGroups}: EndUserCardProps) => {
     const [isActive, setIsActive] = useState(user.active);
     const [isDeleted, setIsDeleted] = useState(!!user.deletedAt);
     const [deletedAt, setDeletedAt] = useState(user.deletedAt ? new Date(user.deletedAt).toLocaleString() : null);
@@ -111,15 +111,22 @@ const EndUserCard = ({user, onViewSensors}: EndUserCardProps) => {
                 <hr/>
 
                 <div className="flex justify-between items-center">
-                    <button
-                        onClick={() => onViewSensors(user.id)}
-                        className="btn btn-outline btn-wide btn-primary btn-sm flex items-center gap-2 rounded-xl"
-                    >
-                        End Users Sensors
-                        <ArrowRightIcon className="w-5 h-5"/>
-                    </button>
+                    <div className="flex row-auto gap-2">
+                        <button
+                            onClick={() => onViewSensors(user.id)}
+                            className="btn btn-outline btn-primary btn-sm flex items-center gap-2 rounded-xl"
+                        >
+                            Sensors
+                        </button>
+                        <button
+                            onClick={() => onViewGroups(user.id)}
+                            className="btn btn-outline btn-primary btn-sm flex items-center gap-2 rounded-xl"
+                        >
+                            Groups
+                        </button>
+                    </div>
                     <div className="dropdown dropdown-left dropdown-end flex justify-end">
-                        <PencilSquareIcon tabIndex={0} role="button" className="btn btn-sm btn-outline p-0.5"/>
+                        <PencilSquareIcon tabIndex={0} role="button" className="btn btn-sm btn-ghost p-0.5"/>
                         <ul tabIndex={0}
                             className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                             {isDeleted ? (

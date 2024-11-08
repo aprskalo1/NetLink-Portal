@@ -69,14 +69,14 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
 
                 <div className="flex justify-between items-center">
                     <button
-                        onClick={() => setIsModalOpen(true)} // Open modal on button click
+                        onClick={() => setIsModalOpen(true)}
                         className="btn btn-outline btn-wide btn-primary btn-sm flex items-center gap-2 rounded-xl"
                     >
                         Recordings
                         <ArrowRightIcon className="w-5 h-5"/>
                     </button>
                     <div className="dropdown dropdown-left dropdown-end flex justify-end">
-                        <PencilSquareIcon tabIndex={0} role="button" className="btn btn-sm btn-outline p-0.5"/>
+                        <PencilSquareIcon tabIndex={0} role="button" className="btn btn-sm btn-ghost p-0.5"/>
                         <ul tabIndex={0}
                             className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                             <li>
@@ -99,7 +99,7 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
                     sensor={sensor}
                     sensorId={sensor.id}
                     endUserId={endUserId}
-                    onClose={() => setIsModalOpen(false)} // Pass function to close modal
+                    onClose={() => setIsModalOpen(false)}
                 />
             )}
         </div>

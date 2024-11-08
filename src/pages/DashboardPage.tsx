@@ -2,6 +2,7 @@
 import Navbar from "../components/Navbar.tsx";
 import EndUserContainer from "../components/EndUserContainer.tsx";
 import SensorContainer from "../components/SensorContainer.tsx";
+import GroupsContainer from "../components/GroupsContainer.tsx";
 import {RootState} from "../store/store.ts";
 import {setActiveContainer, setSelectedEndUserId} from "../store/dashboardSlice";
 
@@ -15,6 +16,11 @@ const DashboardPage = () => {
         dispatch(setActiveContainer("sensors"));
     };
 
+    const handleViewGroups = (endUserId: string) => {
+        dispatch(setSelectedEndUserId(endUserId));
+        dispatch(setActiveContainer("groups"));
+    };
+
     const handleBackToEndUsers = () => {
         dispatch(setActiveContainer("endUsers"));
         dispatch(setSelectedEndUserId(null));
@@ -23,10 +29,14 @@ const DashboardPage = () => {
     return (
         <>
             <Navbar/>
-            {activeContainer === "endUsers" ? (
-                <EndUserContainer onViewSensors={handleViewSensors}/>
-            ) : (
+            {activeContainer === "endUsers" && (
+                <EndUserContainer onViewSensors={handleViewSensors} onViewGroups={handleViewGroups}/>
+            )}
+            {activeContainer === "sensors" && (
                 <SensorContainer endUserId={selectedEndUserId!} onBack={handleBackToEndUsers}/>
+            )}
+            {activeContainer === "groups" && (
+                <GroupsContainer endUserId={selectedEndUserId!} onBack={handleBackToEndUsers}/>
             )}
         </>
     );

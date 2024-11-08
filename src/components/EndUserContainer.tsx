@@ -7,9 +7,10 @@ import {EndUser} from "../types/types.ts";
 
 interface EndUserContainerProps {
     onViewSensors: (endUserId: string) => void;
+    onViewGroups: (endUserId: string) => void;
 }
 
-const EndUserContainer = ({onViewSensors}: EndUserContainerProps) => {
+const EndUserContainer = ({onViewSensors, onViewGroups}: EndUserContainerProps) => {
     const [endUsers, setEndUsers] = useState<EndUser[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [page, setPage] = useState(1);
@@ -51,7 +52,8 @@ const EndUserContainer = ({onViewSensors}: EndUserContainerProps) => {
             <div className="flex flex-wrap gap-4 justify-center">
                 {endUsers.length > 0 ? (
                     endUsers.map((user) => (
-                        <EndUserCard key={user.id} user={user} onViewSensors={onViewSensors}/>
+                        <EndUserCard key={user.id} user={user} onViewSensors={onViewSensors}
+                                     onViewGroups={onViewGroups}/>
                     ))
                 ) : (
                     !isLoading && <p className="mt-10">No EndUser data available to show.</p>
