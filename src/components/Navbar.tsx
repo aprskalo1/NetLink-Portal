@@ -9,13 +9,12 @@ import {
     DocumentChartBarIcon
 } from "@heroicons/react/24/outline";
 import {Link, useNavigate} from 'react-router-dom';
-import {signOut} from 'firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import logoDark from '../assets/logo-dark.png';
 import logoLight from '../assets/logo-light.png';
-import {auth} from "../services/firebase.ts";
-import {clearUser} from "../store/userSlice.ts";
 import {RootState} from "../store/store.ts";
+import {handleSignOut} from "../services/auth.ts";
+import {clearUser} from "../store/userSlice.ts";
 
 const lightThemes = [
     "light", "cupcake", "bumblebee", "emerald", "corporate",
@@ -31,7 +30,7 @@ const darkThemes = [
 
 const Navbar = () => {
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme') || 'light');
-    const isLoggedIn = useSelector((state: RootState) => state.user.developerId !== null);
+    const isLoggedIn = useSelector((state: RootState) => state.user.developerId !== "");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isDashboard = location.pathname === "/dashboard";
@@ -42,14 +41,9 @@ const Navbar = () => {
     }, [currentTheme]);
 
     const handleLogout = async () => {
-        try {
-            await signOut(auth);
-            localStorage.removeItem('accessToken');
-            dispatch(clearUser());
-            navigate('/login');
-        } catch (error) {
-            console.error('Error logging out:', error);
-        }
+        await handleSignOut();
+        dispatch(clearUser());
+        navigate("/login");
     };
 
     const handleThemeChange = (theme: string) => {

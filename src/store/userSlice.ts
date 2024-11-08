@@ -2,7 +2,7 @@
 import {UserState} from "../types/types.ts";
 
 const initialState: UserState = {
-    developerId: null,
+    developerId: "",
     username: null,
     devToken: null,
     active: false,
@@ -21,7 +21,7 @@ const userSlice = createSlice({
             state.createdAt = action.payload.createdAt;
         },
         clearUser: (state) => {
-            state.developerId = null;
+            state.developerId = "";
             state.username = null;
             state.devToken = null;
             state.active = false;

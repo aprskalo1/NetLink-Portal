@@ -9,7 +9,7 @@ export interface CustomJwtPayload extends JwtPayload {
 }
 
 export interface UserState {
-    developerId: string | null;
+    developerId: string;
     username: string | null;
     devToken: string | null;
     active: boolean;

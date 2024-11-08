@@ -215,3 +215,14 @@ export const fetchRecordedValues = async (
         throw error;
     }
 };
+
+export const deleteDeveloper = async (developerId: string) => {
+    try {
+        await apiClient.delete(`/api/Developers/DeleteDeveloper`, {params: {developerId}});
+    } catch (error: unknown) {
+        const errorMessage = error instanceof AxiosError && error.response?.data?.message
+            ? error.response.data.message
+            : "Failed to delete developer.";
+        throw new Error(errorMessage);
+    }
+};
