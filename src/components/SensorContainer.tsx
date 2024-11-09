@@ -6,6 +6,8 @@ import {fetchPaginatedEndUserSensors, fetchSensorDetails} from "../services/api.
 import {ArrowLeftIcon, PlusIcon} from "@heroicons/react/24/outline";
 import SensorModalForm from "../components/SensorModalForm";
 import {Sensor} from "../types/types.ts";
+import {toast} from "react-toastify";
+import {AxiosError} from "axios";
 
 interface SensorContainerProps {
     endUserId: string;
@@ -32,13 +34,16 @@ const SensorContainer = ({endUserId, onBack}: SensorContainerProps) => {
                 setSensors(data.sensors);
                 setTotalCount(data.totalCount);
             } catch (error) {
-                console.error("Error loading sensors:", error);
+                const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                    ? error.response.data.message
+                    : "Failed to load sensors.";
+                toast.error(errorMessage);
             } finally {
                 setIsLoading(false);
             }
         };
         loadSensors();
-    }, [endUserId, page, searchTerm]);
+    }, [endUserId, page, pageSize, searchTerm]);
 
     const totalPages = Math.ceil(totalCount / pageSize);
 
@@ -64,7 +69,10 @@ const SensorContainer = ({endUserId, onBack}: SensorContainerProps) => {
             const fullSensor = await fetchSensorDetails(newSensorId, endUserId);
             setSensors([fullSensor, ...sensors]);
         } catch (error) {
-            console.error("Failed to fetch full sensor details:", error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to fetch full sensor details.";
+            toast.error(errorMessage);
         }
     };
 

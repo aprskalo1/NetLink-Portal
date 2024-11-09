@@ -3,6 +3,8 @@ import {fetchEndUserGroups} from "../services/api.ts";
 import {ArrowLeftIcon, MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {Group} from "../types/types.ts";
 import GroupDetailsModal from './GroupDetailsModal';
+import {AxiosError} from "axios";
+import {toast} from "react-toastify";
 
 interface GroupsContainerProps {
     endUserId: string;
@@ -21,7 +23,10 @@ const GroupsContainer = ({endUserId, onBack}: GroupsContainerProps) => {
             const data = await fetchEndUserGroups(endUserId);
             setGroups(data);
         } catch (error) {
-            console.error("Error loading groups:", error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to load groups.";
+            toast.error(errorMessage);
         } finally {
             setIsLoading(false);
         }

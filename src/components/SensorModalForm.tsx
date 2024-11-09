@@ -1,6 +1,8 @@
 import {FormEvent, useEffect, useRef, useState} from "react";
 import {Sensor} from "../types/types";
 import {updateSensor, addSensor} from "../services/api";
+import {toast} from "react-toastify";
+import {AxiosError} from "axios";
 
 interface SensorModalFormProps {
     sensor?: Sensor;
@@ -40,14 +42,19 @@ const SensorModalForm = ({sensor, endUserId, onClose, onUpdate, onAdd, isEditMod
         try {
             if (isEditMode && sensor) {
                 const updatedSensor = await updateSensor(sensor.id, endUserId, sensorData);
+                toast.success("Sensor updated successfully.");
                 onUpdate(updatedSensor);
             } else {
                 const newSensorId = await addSensor(endUserId, sensorData);
+                toast.success("Sensor added successfully.");
                 onAdd(newSensorId);
             }
             onClose();
         } catch (error) {
-            console.error(`Failed to ${isEditMode ? "update" : "add"} sensor:`, error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : `Failed to ${isEditMode ? "update" : "add"} sensor.`;
+            toast.error(errorMessage);
         } finally {
             setIsProcessing(false);
         }

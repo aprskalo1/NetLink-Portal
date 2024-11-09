@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import InputField from '../InputField.tsx';
+import {toast} from "react-toastify";
 
 interface AuthFormProps {
     onSubmit: (email: string, password: string) => Promise<void>;
@@ -16,8 +17,8 @@ const AuthForm = ({onSubmit, buttonText}: AuthFormProps) => {
         setLoading(true);
         try {
             await onSubmit(email, password);
-        } catch (error) {
-            console.error("Login error:", error);
+        } catch {
+            toast.error("Ooops! Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }

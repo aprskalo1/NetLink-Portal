@@ -2,6 +2,8 @@
 import {EndUser} from "../types/types.ts";
 import {deactivateEndUser, reactivateEndUser, deleteEndUser, restoreEndUser} from "../services/api.ts";
 import {useState} from "react";
+import {toast} from "react-toastify";
+import {AxiosError} from "axios";
 
 interface EndUserCardProps {
     user: EndUser;
@@ -18,8 +20,12 @@ const EndUserCard = ({user, onViewSensors, onViewGroups}: EndUserCardProps) => {
         try {
             await deactivateEndUser(user.id);
             setIsActive(false);
+            toast.success("End user deactivated.");
         } catch (error) {
-            console.error("Failed to deactivate user:", error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to deactivate user.";
+            toast.error(errorMessage);
         }
     };
 
@@ -27,8 +33,12 @@ const EndUserCard = ({user, onViewSensors, onViewGroups}: EndUserCardProps) => {
         try {
             await reactivateEndUser(user.id);
             setIsActive(true);
+            toast.success("End user reactivated.");
         } catch (error) {
-            console.error("Failed to reactivate user:", error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to reactivate user.";
+            toast.error(errorMessage);
         }
     };
 
@@ -37,8 +47,12 @@ const EndUserCard = ({user, onViewSensors, onViewGroups}: EndUserCardProps) => {
             await deleteEndUser(user.id);
             setDeletedAt(new Date().toLocaleString());
             setIsDeleted(true);
+            toast.success("End user deleted.");
         } catch (error) {
-            console.error("Failed to delete user:", error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to delete user.";
+            toast.error(errorMessage);
         }
     };
 
@@ -47,8 +61,12 @@ const EndUserCard = ({user, onViewSensors, onViewGroups}: EndUserCardProps) => {
             await restoreEndUser(user.id);
             setDeletedAt(null);
             setIsDeleted(false);
+            toast.success("End user restored.");
         } catch (error) {
-            console.error("Failed to restore user:", error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to restore user.";
+            toast.error(errorMessage);
         }
     };
 

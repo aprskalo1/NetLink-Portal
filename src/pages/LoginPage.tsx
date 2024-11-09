@@ -33,7 +33,6 @@ const LoginPage = () => {
             navigate('/docs/profile');
         } catch (err: unknown) {
             if (err instanceof Error) {
-                console.error(err.message);
                 if (err.message.includes('auth/wrong-password')) {
                     setError('Incorrect credentials. Please try again.');
                 }

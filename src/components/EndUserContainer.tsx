@@ -4,6 +4,8 @@ import SearchBar from "../components/SearchBar.tsx";
 import Pagination from "../components/Pagination.tsx";
 import {fetchPaginatedEndUsers} from "../services/api.ts";
 import {EndUser} from "../types/types.ts";
+import {AxiosError} from "axios";
+import {toast} from "react-toastify";
 
 interface EndUserContainerProps {
     onViewSensors: (endUserId: string) => void;
@@ -27,14 +29,17 @@ const EndUserContainer = ({onViewSensors, onViewGroups}: EndUserContainerProps) 
                 setEndUsers(data.endUsers);
                 setTotalCount(data.totalCount);
             } catch (error) {
-                console.error("Error loading end users:", error);
+                const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                    ? error.response.data.message
+                    : "Something went wrong while fetching end users.";
+                toast.error(errorMessage);
             } finally {
                 setIsLoading(false);
             }
         };
-        loadEndUsers();
-    }, [page, searchTerm]);
 
+        loadEndUsers();
+    }, [page, pageSize, searchTerm]);
     const totalPages = Math.ceil(totalCount / pageSize);
 
     const handleSearch = (term: string) => {

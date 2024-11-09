@@ -2,6 +2,8 @@ import {FormEvent, useEffect, useRef, useState} from "react";
 import {fetchRecordedValues} from "../services/api.ts";
 import {RecordedValue, Sensor} from "../types/types.ts";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/solid";
+import {toast} from "react-toastify";
+import {AxiosError} from "axios";
 
 interface RecordingsModalProps {
     sensor: Sensor;
@@ -38,7 +40,10 @@ const RecordingsModal = ({sensor, sensorId, endUserId, onClose}: RecordingsModal
             setIsFiltered(true);
             setRecordedValues(data);
         } catch (error) {
-            console.error("Error fetching filtered recorded values:", error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to fetch recorded values.";
+            toast.error(errorMessage);
         } finally {
             clearTimeout(loadingTimeout);
             setIsLoading(false);

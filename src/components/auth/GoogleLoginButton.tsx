@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {jwtDecode} from "jwt-decode";
 import {setUser} from "../../store/userSlice.ts";
 import {CustomJwtPayload} from "../../types/types.ts";
+import {toast} from "react-toastify";
 
 const GoogleLoginButton = () => {
     const navigate = useNavigate();
@@ -25,8 +26,8 @@ const GoogleLoginButton = () => {
             dispatch(setUser({developerId, username, devToken, active: active === "True", createdAt}));
 
             navigate('/docs/profile');
-        } catch (error) {
-            console.error('Google login failed:', error);
+        } catch {
+            toast.error("Ooops! Something went wrong. Please try again.");
         }
     };
 

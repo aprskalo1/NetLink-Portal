@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar.tsx";
 import Pagination from "./Pagination.tsx";
 import {fetchSensorsFromGroup, fetchPaginatedEndUserSensors, updateGroup, deleteGroup} from "../services/api.ts";
 import {toast} from "react-toastify";
+import {AxiosError} from "axios";
 
 interface GroupDetailsModalProps {
     isOpen: boolean;
@@ -35,7 +36,10 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
                 const sensors = await fetchSensorsFromGroup(group.id, endUserId);
                 setAssignedSensors(sensors);
             } catch (error) {
-                console.error("Error loading assigned sensors:", error);
+                const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                    ? error.response.data.message
+                    : "Failed to load assigned sensors.";
+                toast.error(errorMessage);
             } finally {
                 setAssignedLoaded(true);
             }
@@ -60,7 +64,10 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
                 setUnassignedSensors(unassigned);
                 setTotalCount(data.totalCount - assignedSensors.length);
             } catch (error) {
-                console.error("Error loading sensors:", error);
+                const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                    ? error.response.data.message
+                    : "Failed to load sensors.";
+                toast.error(errorMessage);
             } finally {
                 setIsLoading(false);
             }
@@ -69,7 +76,7 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
         if (assignedLoaded) {
             loadUnassignedSensors();
         }
-    }, [assignedLoaded, assignedSensors, endUserId, page, searchTerm, isOpen]);
+    }, [assignedLoaded, assignedSensors, endUserId, page, pageSize, searchTerm, isOpen]);
 
     const handleGroupNameChange = (newGroupName: string) => {
         setGroupName(newGroupName);

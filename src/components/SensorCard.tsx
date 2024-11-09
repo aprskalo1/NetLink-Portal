@@ -4,6 +4,8 @@ import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import {Sensor} from "../types/types";
 import {deleteSensor} from "../services/api";
 import RecordingsModal from "./RecordingsModal.tsx";
+import {toast} from "react-toastify";
+import {AxiosError} from "axios";
 
 interface SensorCardProps {
     sensor: Sensor;
@@ -23,9 +25,13 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
         setIsDeleting(true);
         try {
             await deleteSensor(sensor.id, endUserId);
+            toast.success("Sensor deleted successfully.");
             onDelete(sensor.id);
         } catch (error) {
-            console.error("Failed to delete sensor:", error);
+            const errorMessage = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : "Failed to delete sensor.";
+            toast.error(errorMessage);
         } finally {
             setIsDeleting(false);
         }
