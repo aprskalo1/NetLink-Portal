@@ -1,6 +1,6 @@
 import axios, {AxiosError} from "axios";
 import {toast} from "react-toastify";
-import {RecordedValue, Sensor} from "../types/types.ts";
+import {Group, RecordedValue, Sensor} from "../types/types.ts";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
@@ -241,4 +241,30 @@ export const fetchEndUserGroups = async (endUserId: string) => {
         toast.error(errorMessage);
         throw error;
     }
+};
+
+export const fetchSensorsFromGroup = async (groupId: string, endUserId: string): Promise<Sensor[]> => {
+    try {
+        const response = await apiClient.get(`/api/Sensors/GetSensorsFromGroup`, {
+            params: {groupId, endUserId},
+        });
+        return response.data;
+    } catch (error: unknown) {
+        const errorMessage = error instanceof AxiosError && error.response?.data?.message
+            ? error.response.data.message
+            : "Failed to fetch sensors from the group.";
+        toast.error(errorMessage);
+        throw error;
+    }
+};
+
+export const updateGroup = async (groupId: string, endUserId: string, groupName: string): Promise<Group> => {
+    const response = await apiClient.put(`/api/Grouping/UpdateGroup`, {groupName}, {
+        params: {groupId, endUserId},
+    });
+    return response.data;
+};
+
+export const deleteGroup = async (groupId: string, endUserId: string): Promise<void> => {
+    await apiClient.delete(`/api/Grouping/DeleteGroup`, {params: {groupId, endUserId}});
 };

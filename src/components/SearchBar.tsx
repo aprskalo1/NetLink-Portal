@@ -5,9 +5,10 @@ interface SearchBarProps {
     onSearch: (searchTerm: string) => void;
     isLoading: boolean;
     placeholder?: string;
+    size?: "small";
 }
 
-const SearchBar = ({onSearch, isLoading, placeholder}: SearchBarProps) => {
+const SearchBar = ({onSearch, isLoading, placeholder, size}: SearchBarProps) => {
     const [inputValue, setInputValue] = useState("");
     const [showSpinner, setShowSpinner] = useState(false);
 
@@ -39,6 +40,9 @@ const SearchBar = ({onSearch, isLoading, placeholder}: SearchBarProps) => {
         }
     };
 
+    const inputClasses = `input input-bordered w-full max-w-sm sm:max-w-lg ${size === "small" ? "input-sm" : ""}`;
+    const buttonClasses = `btn btn-outline btn-primary ms-1 min-w-10 ${size === "small" ? "btn-sm" : ""}`;
+
     return (
         <div className="mb-2 mt-2 flex justify-center">
             <input
@@ -47,13 +51,13 @@ const SearchBar = ({onSearch, isLoading, placeholder}: SearchBarProps) => {
                 value={inputValue}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                className="input input-bordered w-full max-w-sm sm:max-w-lg"
+                className={inputClasses}
             />
-            <button onClick={handleSearchClick} className="btn btn-outline btn-primary ms-1 min-w-10">
+            <button onClick={handleSearchClick} className={buttonClasses}>
                 {showSpinner ? (
                     <span className="loading loading-spinner loading-sm"></span>
                 ) : (
-                    <MagnifyingGlassIcon className="w-5 h-5"/>
+                    <MagnifyingGlassIcon className={`w-5 h-5 ${size === "small" ? "w-4 h-4" : ""}`}/>
                 )}
             </button>
         </div>
