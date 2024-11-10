@@ -1,10 +1,11 @@
 import {useCallback, useEffect, useState} from "react";
 import {fetchEndUserGroups} from "../services/api.ts";
-import {ArrowLeftIcon, MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+import {ArrowLeftIcon, MagnifyingGlassIcon, PlusIcon} from "@heroicons/react/24/outline";
 import {Group} from "../types/types.ts";
 import GroupDetailsModal from './GroupDetailsModal';
 import {AxiosError} from "axios";
 import {toast} from "react-toastify";
+import GroupCreateModal from "./GroupCreateModal.tsx";
 
 interface GroupsContainerProps {
     endUserId: string;
@@ -16,6 +17,7 @@ const GroupsContainer = ({endUserId, onBack}: GroupsContainerProps) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedGroup, setSelectedGroup] = useState<Group | undefined>(undefined);
+    const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(false);
 
     const loadGroups = useCallback(async () => {
         setIsLoading(true);
@@ -51,10 +53,27 @@ const GroupsContainer = ({endUserId, onBack}: GroupsContainerProps) => {
         handleModalClose();
     };
 
+    const openCreateGroupModal = () => {
+        setIsCreateGroupModalOpen(true);
+    }
+
+    const closeCreateGroupModal = () => {
+        setIsCreateGroupModalOpen(false);
+    }
+
     return (
         <div className="w-full flex flex-col items-center">
             <div className="overflow-x-auto sm:w-8/12 w-full">
-                <h2 className="text-2xl font-semibold text-center">Groups</h2>
+                <div className="flex flex-row items-center justify-between">
+                    <button onClick={onBack} className="btn btn-ghost flex items-center gap-2 mt-2">
+                        <ArrowLeftIcon className="w-5 h-5"/>
+                        End Users
+                    </button>
+                    <h2 className="text-2xl font-semibold text-center">Groups</h2>
+                    <button className="btn btn-outline btn-secondary rounded-3xl me-2" onClick={openCreateGroupModal}>
+                        <PlusIcon className="w-5 h-5"/>
+                    </button>
+                </div>
                 <div className="max-h-[500px] overflow-y-auto mt-4">
                     <table className="table table-zebra w-full">
                         <thead>
@@ -85,10 +104,6 @@ const GroupsContainer = ({endUserId, onBack}: GroupsContainerProps) => {
                     </table>
                 </div>
                 {groups.length === 0 && !isLoading && <p className="mt-10 mb-5 text-center">No groups available.</p>}
-                <button onClick={onBack} className="btn btn-ghost flex items-center gap-2 mt-2">
-                    <ArrowLeftIcon className="w-5 h-5"/>
-                    End Users
-                </button>
             </div>
             {isModalOpen && selectedGroup && (
                 <GroupDetailsModal
@@ -98,6 +113,13 @@ const GroupsContainer = ({endUserId, onBack}: GroupsContainerProps) => {
                     onClose={handleModalClose}
                     onUpdate={handleUpdate}
                 />
+            )}
+
+            {isCreateGroupModalOpen && (
+                <GroupCreateModal
+                    onClose={closeCreateGroupModal}
+                    endUserId={endUserId}
+                    onCreateSuccess={loadGroups}/>
             )}
         </div>
     );

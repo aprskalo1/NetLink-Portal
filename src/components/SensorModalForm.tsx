@@ -2,7 +2,7 @@ import {FormEvent, useEffect, useRef, useState} from "react";
 import {Sensor} from "../types/types";
 import {updateSensor, addSensor} from "../services/api";
 import {toast} from "react-toastify";
-import {AxiosError} from "axios";
+import {handleAxiosError} from "../utils/errorUtils.ts";
 
 interface SensorModalFormProps {
     sensor?: Sensor;
@@ -51,24 +51,21 @@ const SensorModalForm = ({sensor, endUserId, onClose, onUpdate, onAdd, isEditMod
             }
             onClose();
         } catch (error) {
-            const errorMessage = error instanceof AxiosError && error.response?.data?.message
-                ? error.response.data.message
-                : `Failed to ${isEditMode ? "update" : "add"} sensor.`;
-            toast.error(errorMessage);
+            handleAxiosError(error, `Failed to ${isEditMode ? "update" : "add"} sensor.`);
         } finally {
             setIsProcessing(false);
         }
     };
 
     return (
-        <dialog id="sensor_modal" ref={dialogRef} className="modal">
+        <dialog id="sensor-modal" ref={dialogRef} className="modal">
             <div className="modal-box">
                 <form onSubmit={handleSubmit}>
                     <button type="button" onClick={onClose}
                             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                         ✕
                     </button>
-                    <h3 className="font-bold text-lg mb-4">{isEditMode ? "Update Sensor" : "Add New Sensor"}</h3>
+                    <h3 className="font-bold text-lg mb-4 text-center">{isEditMode ? "Update Sensor" : "Add New Sensor"}</h3>
 
                     <label className="input input-bordered input-sm flex items-center gap-2 mb-2">
                         Device Name

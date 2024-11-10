@@ -149,3 +149,23 @@ export const updateGroup = async (groupId: string, endUserId: string, groupName:
 export const deleteGroup = async (groupId: string, endUserId: string): Promise<void> => {
     await apiClient.delete(`/api/Grouping/DeleteGroup`, {params: {groupId, endUserId}});
 };
+
+export const addSensorsToGroup = async (groupId: string, sensorIds: string[], endUserId: string) => {
+    const response = await apiClient.post(`/api/Grouping/AddSensorsToGroup`, sensorIds, {
+        params: {groupId, endUserId}
+    });
+    return response.data;
+};
+
+export const removeSensorFromGroup = async (groupId: string, sensorId: string, endUserId: string) => {
+    await apiClient.post(`/api/Grouping/RemoveSensorFromGroup`, null, {
+        params: {groupId, sensorId, endUserId},
+    });
+};
+
+export const createGroup = async (endUserId: string, groupName: string) => {
+    const response = await apiClient.post(`/api/Grouping/CreateGroup`, {groupName}, {
+        params: {endUserId},
+    });
+    return response.data;
+};

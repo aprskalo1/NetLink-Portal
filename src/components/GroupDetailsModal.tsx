@@ -2,7 +2,13 @@ import {Group, Sensor} from "../types/types.ts";
 import {useRef, useEffect, useState} from "react";
 import SearchBar from "./SearchBar.tsx";
 import Pagination from "./Pagination.tsx";
-import {fetchSensorsFromGroup, fetchPaginatedEndUserSensors, updateGroup, deleteGroup} from "../services/api.ts";
+import {
+    fetchSensorsFromGroup,
+    fetchPaginatedEndUserSensors,
+    updateGroup,
+    deleteGroup,
+    addSensorsToGroup, removeSensorFromGroup
+} from "../services/api.ts";
 import {toast} from "react-toastify";
 import {AxiosError} from "axios";
 
@@ -16,6 +22,7 @@ interface GroupDetailsModalProps {
 
 const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupDetailsModalProps) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
+    const pageSize = 8;
 
     const [groupName, setGroupName] = useState(group.groupName);
     const [isModified, setIsModified] = useState(false);
@@ -26,7 +33,8 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
     const [searchTerm, setSearchTerm] = useState("");
     const [assignedSelectedId, setAssignedSelectedId] = useState<string | null>(null);
     const [nonAssignedSelectedIds, setNonAssignedSelectedIds] = useState<string[]>([]);
-    const pageSize = 8;
+    const [isAssignedSensorSelected, setIsAssignedSensorSelected] = useState(false);
+    const [isUnassignedSensorSelected, setIsUnassignedSensorSelected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [assignedLoaded, setAssignedLoaded] = useState(false);
 
@@ -93,15 +101,20 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
     };
 
     const handleAssignedCheckboxChange = (sensorId: string) => {
-        setAssignedSelectedId(sensorId === assignedSelectedId ? null : sensorId);
+        const isSelected = sensorId === assignedSelectedId ? null : sensorId;
+        setAssignedSelectedId(isSelected);
+        setIsAssignedSensorSelected(!!isSelected);
     };
 
     const handleNonAssignedCheckboxChange = (sensorId: string) => {
-        setNonAssignedSelectedIds((prevSelected) =>
-            prevSelected.includes(sensorId)
+        setNonAssignedSelectedIds((prevSelected) => {
+            const updatedSelection = prevSelected.includes(sensorId)
                 ? prevSelected.filter((id) => id !== sensorId)
-                : [...prevSelected, sensorId]
-        );
+                : [...prevSelected, sensorId];
+
+            setIsUnassignedSensorSelected(updatedSelection.length > 0);
+            return updatedSelection;
+        });
     };
 
     const handleSaveChanges = async () => {
@@ -127,6 +140,50 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
     };
 
     const totalPages = Math.ceil(totalCount / pageSize);
+
+    const refreshSensors = async () => {
+        const updatedAssignedSensors = await fetchSensorsFromGroup(group.id, endUserId);
+        setAssignedSensors(updatedAssignedSensors);
+
+        const data = await fetchPaginatedEndUserSensors(endUserId, page, pageSize, searchTerm);
+        const unassigned = data.sensors.filter(
+            (sensor: Sensor) => !updatedAssignedSensors.some((assigned) => assigned.id === sensor.id)
+        );
+        setUnassignedSensors(unassigned);
+        setTotalCount(data.totalCount - updatedAssignedSensors.length);
+    }
+
+    const handleAssignSensors = async () => {
+        if (nonAssignedSelectedIds.length === 0) return;
+
+        try {
+            await addSensorsToGroup(group.id, nonAssignedSelectedIds, endUserId);
+            toast.success("Sensors assigned successfully.");
+
+            setNonAssignedSelectedIds([]);
+            setIsUnassignedSensorSelected(false);
+
+            refreshSensors();
+        } catch {
+            toast.error("Failed to assign sensors.");
+        }
+    };
+
+    const handleUnassignSensor = async () => {
+        if (!assignedSelectedId) return;
+
+        try {
+            await removeSensorFromGroup(group.id, assignedSelectedId, endUserId);
+            toast.success("Sensor unassigned successfully.");
+
+            setAssignedSelectedId(null);
+            setIsAssignedSensorSelected(false);
+
+            refreshSensors();
+        } catch {
+            toast.error("Failed to unassign sensor.");
+        }
+    };
 
     return (
         <dialog ref={dialogRef} className="modal" onClose={onClose}>
@@ -200,6 +257,12 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
                                 </tbody>
                             </table>
                         </div>
+                        <div className="relative flex items-center justify-end">
+                            {isAssignedSensorSelected && (
+                                <button className="btn btn-error btn-outline btn-sm mt-1 right-0"
+                                        onClick={handleUnassignSensor}>Unassign</button>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className="collapse collapse-arrow bg-base-200 mb-2">
@@ -247,10 +310,23 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
                                 </tbody>
                             </table>
                         </div>
-                        {unassignedSensors.length > 0 && (
-                            <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange}
-                                        size="small"/>
-                        )}
+                        <div className="relative flex flex-row items-center">
+                            {unassignedSensors.length > 0 && (
+                                <div className="mx-auto">
+                                    <Pagination
+                                        currentPage={page}
+                                        totalPages={totalPages}
+                                        onPageChange={handlePageChange}
+                                        size="small"
+                                    />
+                                </div>
+                            )}
+
+                            {isUnassignedSensorSelected && (
+                                <button className="btn btn-accent btn-outline btn-sm absolute right-0"
+                                        onClick={handleAssignSensors}>Assign</button>
+                            )}
+                        </div>
                     </div>
                 </div>
                 {isModified ? (
