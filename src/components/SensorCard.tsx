@@ -48,7 +48,7 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
                         Id
                         <input type="text" className="grow" value={sensor.id ? sensor.id.toString() : "N/A"} readOnly/>
                     </label>
-                    <div className="badge badge-info overflow-auto">
+                    <div className="badge badge-info max-w-24 overflow-hidden">
                         {sensor.deviceType || "n/a"}
                     </div>
                 </div>
@@ -59,7 +59,7 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
                 </label>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
-                    Measurement Unit
+                    Measure Unit
                     <input type="text" className="grow" value={sensor.measurementUnit || "n/a"} readOnly/>
                 </label>
 

@@ -72,7 +72,7 @@ const ProfilePage = () => {
 
                 <dialog id="delete-modal" className="modal">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg mb-2">Confirm Deletion</h3>
+                        <h3 className="font-bold text-lg mb-2 text-center">Confirm Deletion</h3>
                         <p>By deleting your account, all data will be lost and this action is irreversible.</p>
                         <input
                             type="text"

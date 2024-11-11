@@ -26,7 +26,7 @@ const GroupCreateModal = ({onClose, endUserId, onCreateSuccess}: GroupCreateModa
         e.preventDefault();
         try {
             await createGroup(endUserId, groupName);
-            toast.success("Group created successfully!");
+            toast.success("Group created successfully.");
             onCreateSuccess();
             handleClose();
         } catch (error) {

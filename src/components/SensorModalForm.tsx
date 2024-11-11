@@ -90,7 +90,7 @@ const SensorModalForm = ({sensor, endUserId, onClose, onUpdate, onAdd, isEditMod
                     </label>
 
                     <label className="input input-bordered input-sm flex items-center gap-2 mb-2">
-                        Measurement Unit
+                        Measure Unit
                         <input
                             type="text"
                             className="grow p-2"
