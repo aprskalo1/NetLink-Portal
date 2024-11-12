@@ -65,8 +65,14 @@ const EndUserMgmt = () => {
             </TextBlock>
             <CodeBlock
                 code={
-                    "// Log in an end user with their ID\n" +
-                    "var endUser = new EndUser(\"endUserId\");\n" +
+                    "// Initialize and log in an end user with their details\n" +
+                    "var endUser = new EndUser(\"48a187e5-3a77-4842-949a-49a85ac0a0e1\")\n" +
+                    "{\n" +
+                    "    LastName = \"Doe\",\n" +
+                    "    FirstName = \"John\",\n" +
+                    "    Username = \"jdoe\",\n" +
+                    "    Email = \"jdoe@example.com\"\n" +
+                    "};\n" +
                     "await endUserSessionManager.LogInEndUserAsync(endUser);"
                 }
                 language="csharp"
@@ -111,7 +117,13 @@ const EndUserMgmt = () => {
             <CodeBlock
                 code={
                     "// Register a new end user\n" +
-                    "var endUser = new EndUser(\"endUserId\");\n" +
+                    "var endUser = new EndUser(\"48a187e5-3a77-4842-949a-49a85ac0a0e1\")\n" +
+                    "{\n" +
+                    "    LastName = \"Doe\",\n" +
+                    "    FirstName = \"John\",\n" +
+                    "    Username = \"jdoe\",\n" +
+                    "    Email = \"jdoe@example.com\"\n" +
+                    "};\n" +
                     "var result = await endUserManagementService.RegisterEndUserAsync(endUser);"
                 }
                 language="csharp"
