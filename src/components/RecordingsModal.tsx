@@ -77,7 +77,7 @@ const RecordingsModal = ({sensor, sensorId, endUserId, onClose}: RecordingsModal
                             />
                             <input
                                 type="date"
-                                className="input input-bordered input-sm me-1 mb-1 min-w-5"
+                                className="input input-bordered input-sm me-1 mb-1 min-w-50"
                                 value={startDate || ""}
                                 onChange={(e) => setStartDate(e.target.value)}
                                 max={endDate || ""}
