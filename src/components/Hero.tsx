@@ -1,7 +1,7 @@
 import {ArrowRightIcon} from '@heroicons/react/24/solid';
 import {Link} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import BannerPhoto from '../assets/landing-page-banner.webp';
+import BannerPhoto from '../assets/landing-page-banner.png';
 
 const Hero = () => {
     const [theme] = useState(localStorage.getItem('theme') || 'light');

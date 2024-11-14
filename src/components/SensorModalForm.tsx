@@ -51,10 +51,12 @@ const SensorModalForm = ({sensor, endUserId, onClose, onUpdate, onAdd, isEditMod
             }
             onClose();
         } catch (error) {
-            handleAxiosError(error, `Failed to ${isEditMode ? "update" : "add"} sensor.`);
+            const defaultMessage = `Failed to ${isEditMode ? "update" : "add"} sensor.`;
+            handleAxiosError(error, defaultMessage);
         } finally {
             setIsProcessing(false);
         }
+
     };
 
     return (
@@ -68,7 +70,7 @@ const SensorModalForm = ({sensor, endUserId, onClose, onUpdate, onAdd, isEditMod
                     <h3 className="font-bold text-lg mb-4 text-center">{isEditMode ? "Update Sensor" : "Add New Sensor"}</h3>
 
                     <label className="input input-bordered input-sm flex items-center gap-2 mb-2">
-                        Device Name
+                        Name
                         <input
                             type="text"
                             className="grow p-2"
@@ -79,7 +81,7 @@ const SensorModalForm = ({sensor, endUserId, onClose, onUpdate, onAdd, isEditMod
                     </label>
 
                     <label className="input input-bordered input-sm flex items-center gap-2 mb-2">
-                        Device Type
+                        Type
                         <input
                             type="text"
                             className="grow p-2"
@@ -90,7 +92,7 @@ const SensorModalForm = ({sensor, endUserId, onClose, onUpdate, onAdd, isEditMod
                     </label>
 
                     <label className="input input-bordered input-sm flex items-center gap-2 mb-2">
-                        Measure Unit
+                        Unit
                         <input
                             type="text"
                             className="grow p-2"

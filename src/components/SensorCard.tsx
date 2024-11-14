@@ -40,7 +40,7 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
     return (
         <div className="card bg-base-100 w-96 shadow-xl">
             <div className="card-body">
-                <h2 className="card-title flex justify-center">{sensor.deviceName || "Unnamed"}</h2>
+                <h2 className="card-title flex justify-center overflow-x-auto">{sensor.deviceName || "Unnamed"}</h2>
                 <hr/>
 
                 <div className="flex justify-between items-center">
@@ -54,22 +54,22 @@ const SensorCard = ({sensor, onDelete, endUserId, openEditSensorModal}: SensorCa
                 </div>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
-                    Device Type
+                    Type
                     <input type="text" className="grow" value={sensor.deviceType || "n/a"} readOnly/>
                 </label>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
-                    Measure Unit
+                    Unit
                     <input type="text" className="grow" value={sensor.measurementUnit || "n/a"} readOnly/>
                 </label>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
-                    Device Location
+                    Location
                     <input type="text" className="grow" value={sensor.deviceLocation || "n/a"} readOnly/>
                 </label>
 
                 <label className="input input-bordered input-sm flex items-center gap-2">
-                    Device Description
+                    Description
                     <input type="text" className="grow" value={sensor.deviceDescription || "n/a"} readOnly/>
                 </label>
 

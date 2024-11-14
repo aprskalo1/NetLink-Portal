@@ -90,16 +90,16 @@ const SensorContainer = ({endUserId, onBack}: SensorContainerProps) => {
 
     return (
         <>
-            <div className="flex justify-evenly items-center gap-2">
+            <div className="flex justify-around items-center flex-wrap">
                 <button onClick={onBack} className="btn btn-ghost flex items-center gap-2">
                     <ArrowLeftIcon className="w-5 h-5"/>
                     <span className="hidden md:flex">End Users</span>
                 </button>
-                <div className="w-6/12">
+                <div className="w-6/12 min-w-80">
                     <SearchBar onSearch={handleSearch} isLoading={isLoading}
                                placeholder="Search sensors by anything..."/>
                 </div>
-                <button onClick={openAddSensorModal} className="btn btn-outline btn-secondary rounded-3xl">
+                <button onClick={openAddSensorModal} className="btn btn-ghost hidden md:flex">
                     <PlusIcon className="w-5 h-5"/>
                 </button>
             </div>
@@ -133,6 +133,12 @@ const SensorContainer = ({endUserId, onBack}: SensorContainerProps) => {
                     isEditMode={isEditMode}
                 />
             )}
+            <button
+                onClick={openAddSensorModal}
+                className="fixed bottom-5 right-5 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 md:hidden"
+            >
+                <PlusIcon className="w-6 h-6"/>
+            </button>
         </>
     );
 };

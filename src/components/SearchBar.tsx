@@ -44,7 +44,7 @@ const SearchBar = ({onSearch, isLoading, placeholder, size}: SearchBarProps) => 
     const buttonClasses = `btn btn-outline btn-primary ms-1 min-w-10 ${size === "small" ? "btn-sm" : ""}`;
 
     return (
-        <div className="mb-2 mt-2 flex justify-center">
+        <div className="mb-2 mt-2 flex justify-center ps-3 pe-3">
             <input
                 type="text"
                 placeholder={placeholder}

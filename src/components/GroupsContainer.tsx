@@ -67,10 +67,10 @@ const GroupsContainer = ({endUserId, onBack}: GroupsContainerProps) => {
                 <div className="flex flex-row items-center justify-between">
                     <button onClick={onBack} className="btn btn-ghost flex items-center gap-2 mt-2">
                         <ArrowLeftIcon className="w-5 h-5"/>
-                        End Users
+                        <span className="hidden md:flex">End Users</span>
                     </button>
                     <h2 className="text-2xl font-semibold text-center">Groups</h2>
-                    <button className="btn btn-outline btn-secondary rounded-3xl me-2" onClick={openCreateGroupModal}>
+                    <button className="btn btn-ghost" onClick={openCreateGroupModal}>
                         <PlusIcon className="w-5 h-5"/>
                     </button>
                 </div>

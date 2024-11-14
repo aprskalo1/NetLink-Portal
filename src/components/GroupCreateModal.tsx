@@ -46,7 +46,7 @@ const GroupCreateModal = ({onClose, endUserId, onCreateSuccess}: GroupCreateModa
                     </button>
                     <h3 className="font-bold text-lg mb-4 text-center">New Group</h3>
                     <label className="input input-bordered input-sm flex items-center gap-2 mb-2">
-                        Group Name
+                        Name
                         <input
                             type="text"
                             className="grow p-2"

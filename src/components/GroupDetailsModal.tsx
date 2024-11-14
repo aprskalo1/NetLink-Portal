@@ -196,7 +196,7 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
                 </button>
                 <h3 className="font-bold text-lg text-center mb-4">Group Info</h3>
                 <label className="input input-bordered input-sm flex items-center gap-2 mb-2">
-                    Group Name
+                    Name
                     <input
                         type="text"
                         className="grow p-2"
@@ -206,7 +206,7 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
                     />
                 </label>
                 <label className="input input-bordered input-sm flex items-center gap-2 mb-2">
-                    Created At
+                    Created
                     <input
                         type="text"
                         className="grow p-2"
@@ -214,7 +214,7 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
                         readOnly
                     />
                 </label>
-                <div className="collapse collapse-arrow bg-base-200 mb-2">
+                <div className="collapse collapse-arrow bg-base-200 mb-2 overflow-x-auto">
                     <input type="radio" name="my-accordion-2" defaultChecked/>
                     <div className="collapse-title text-lg font-medium">Sensors in this group</div>
                     <div className="collapse-content">
@@ -265,7 +265,7 @@ const GroupDetailsModal = ({isOpen, group, onClose, endUserId, onUpdate}: GroupD
                         </div>
                     </div>
                 </div>
-                <div className="collapse collapse-arrow bg-base-200 mb-2">
+                <div className="collapse collapse-arrow bg-base-200 mb-2 overflow-x-auto">
                     <input type="radio" name="my-accordion-2"/>
                     <div className="collapse-title text-lg font-medium">Assign sensors to the group</div>
                     <div className="collapse-content">

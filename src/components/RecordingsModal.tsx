@@ -66,7 +66,7 @@ const RecordingsModal = ({sensor, sensorId, endUserId, onClose}: RecordingsModal
                             <input
                                 type="number"
                                 placeholder="Quantity"
-                                className="input input-bordered input-sm me-1 mb-1 w-2/12"
+                                className="input input-bordered input-sm me-1 mb-1 w-2/12 min-w-20"
                                 value={quantity || ""}
                                 onChange={(e) => {
                                     const input = e.target.value ? Number(e.target.value) : undefined;
@@ -77,14 +77,14 @@ const RecordingsModal = ({sensor, sensorId, endUserId, onClose}: RecordingsModal
                             />
                             <input
                                 type="date"
-                                className="input input-bordered input-sm me-1 mb-1"
+                                className="input input-bordered input-sm me-1 mb-1 min-w-5"
                                 value={startDate || ""}
                                 onChange={(e) => setStartDate(e.target.value)}
                                 max={endDate || ""}
                             />
                             <input
                                 type="date"
-                                className="input input-bordered input-sm me-1 mb-1"
+                                className="input input-bordered input-sm me-1 mb-1 min-w-50"
                                 value={endDate || ""}
                                 onChange={(e) => setEndDate(e.target.value)}
                                 min={startDate || ""}
@@ -113,7 +113,7 @@ const RecordingsModal = ({sensor, sensorId, endUserId, onClose}: RecordingsModal
                                 <p className="text-center mt-4 mb-4">No recorded data.</p>
                             ) : (
                                 <table className="table table-xs table-pin-rows table-pin-cols">
-                                    <thead>
+                                <thead>
                                     <tr>
                                         <td></td>
                                         <td>Recorded At</td>
